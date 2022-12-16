@@ -1,15 +1,13 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Home from './Pages/Home/Home';
-import ShareButton from './components/ShareButton';
+import { RouterProvider } from 'react-router-dom';
 import { router } from './Routes/Routes';
-
 
 function App() {
   return (
-    <div>
-      <Home></Home>
+    <div className='bg-orange-50'>
+      <RouterProvider router={router}></RouterProvider>
     </div>
   );
 }
