@@ -6,6 +6,8 @@ import SignIn from "../Pages/SignUp/SignIn";
 import SignUp from "../Pages/SignUp/SignUp";
 import ContactForm from "../Pages/ContactForm/ContactForm";
 import Wishlist from "../Pages/Wishlist/Wishlist";
+import DashboardLayout from "../layout/DashboardLayout";
+import Details from "../Pages/Details/Details";
 export const router = createBrowserRouter([
     {
         path: '/',
@@ -37,6 +39,17 @@ export const router = createBrowserRouter([
             {
                 path: "/wishlist",
                 element:<Wishlist></Wishlist>
+            },
+            {
+                path: "/dashboard",
+                element:<DashboardLayout></DashboardLayout>
+            },
+        
+            {
+                path: "/details/:id",
+                element: <Details></Details>,
+                loader:({params})=>fetch(`https://jsonplaceholder.typicode.com/photos/${params.id}`)
+                
             },
         
         ]

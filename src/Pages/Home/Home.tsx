@@ -1,4 +1,7 @@
 import CatergoryLayout from '../CategoryLayout/CatergoryLayout'
+import Desktop from '../Desktop/Desktop'
+import Laptop from '../Laptop/Laptop'
+import Phone from '../Phone/Phone'
 import Navbar from '../shared/Navbar/Navbar'
 
 const Home = () => {
@@ -11,8 +14,10 @@ const Home = () => {
 <img src="https://www.uob.com.sg/assets/web-resources/personal/images/save/everyday-accounts/one-account/one-account-banner-lemon-1440x700.jpg" alt="" />
 </section>
         
-        <CatergoryLayout></CatergoryLayout>
       </div>
+      <Desktop></Desktop>
+      <Laptop></Laptop>
+      <Phone></Phone>
       </div>
   )
 }
