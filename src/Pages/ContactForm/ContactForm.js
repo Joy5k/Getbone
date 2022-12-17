@@ -1,10 +1,11 @@
 import { useForm, ValidationError } from "@formspree/react";
-import React from "react";
 import swal from "sweetalert";
 import './ContactForm.css';
 
 const ContactForm = () => {
   const [state, handleSubmit] = useForm("mbjbnpqo");
+
+
   console.log(state, "check function");
   if (state.succeeded) {
     swal(

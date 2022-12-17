@@ -5,6 +5,7 @@ import Products from "../Pages/Products/Products";
 import SignIn from "../Pages/SignUp/SignIn";
 import SignUp from "../Pages/SignUp/SignUp";
 import ContactForm from "../Pages/ContactForm/ContactForm";
+import Wishlist from "../Pages/Wishlist/Wishlist";
 export const router = createBrowserRouter([
     {
         path: '/',
@@ -30,6 +31,12 @@ export const router = createBrowserRouter([
             {
                 path: "/contact",
                 element:<ContactForm></ContactForm>
+            },
+        
+        
+            {
+                path: "/wishlist",
+                element:<Wishlist></Wishlist>
             },
         
         ]
