@@ -1,5 +1,5 @@
 import React,{useState} from "react";
-import { FaRegHeart } from "react-icons/fa";
+import { FaCheck, FaRegHeart } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useLoaderData } from "react-router-dom";
 
@@ -35,28 +35,27 @@ const Details = () => {
                     {/* tick itemst                */}
 <ul class="mb-8 space-y-4 text-left text-gray-500 dark:text-gray-400">
     <li class="flex items-center space-x-3">
-   
-        <svg class="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-        <span>In stack </span>
+        <FaCheck class="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400"></FaCheck>
+                            <span>In stack </span>
     </li>
     <li class="flex items-center space-x-3">
      
-        <svg class="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+    <FaCheck class="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400"></FaCheck>
         <span>Free delivery available </span>
     </li>
     <li class="flex items-center space-x-3">
       
-        <svg class="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+    <FaCheck class="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400"></FaCheck>
         <span>Replacement Guarantee: <span class="font-semibold text-gray-900 dark:text-white">6 months</span></span>
     </li>
     <li class="flex items-center space-x-3">
     
-        <svg class="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+    <FaCheck class="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400"></FaCheck>
         <span>warranty: <span class="font-semibold text-gray-900 dark:text-white">1 year</span></span>
     </li>
     <li class="flex items-center space-x-3">
      
-        <svg class="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+    <FaCheck class="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400"></FaCheck>
         <span>Available : <span class="font-semibold text-gray-900 dark:text-white">13 </span></span>
     </li>
                     </ul>
@@ -89,7 +88,9 @@ const Details = () => {
                         </button>
                         <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-sm text-sm px-5 py-2.5 ml-4 mr-4 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 ">Add to cart</button>
                      
-     <button > <Link to="/wishlist" className="block py-2 pl-3 pr-4 mb-1 rounded text-black hover:md:text-blue-700 md:p-0 "> <FaRegHeart className='ml-4 '></FaRegHeart></Link>                     </button>
+                        <button >
+                            <Link to="/wishlist" className="block py-2 pl-3 pr-4 mb-1 rounded text-black hover:md:text-blue-700 md:p-0 "> <FaRegHeart className='ml-4 '></FaRegHeart></Link>
+                        </button>
                     </div>
                     <p className="text-xl font-bold text-blue-600 mt-6">Description</p>
                     <p className="w-72 my-12 text-justify"><span className="font-bold ">Description</span> <br /> Lorem ipsum, dolor sit amet consectetur adipisicing elit. Pariatur, similique molestiae, minus minima voluptates, necessitatibus error quibusdam impedit quidem laborum excepturi mollitia provident nobis. Quia modi esse molestias quis expedita!</p>

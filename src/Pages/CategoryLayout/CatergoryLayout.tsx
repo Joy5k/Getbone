@@ -1,12 +1,13 @@
 import React from 'react';
 import { FaLaptop,FaMobileAlt,FaDesktop } from 'react-icons/fa';
 
-import { HashRouter as Router, Route, Link } from 'react-router-dom'
+import { HashRouter as Router, Route, Link, Outlet } from 'react-router-dom'
 
 const CatergoryLayout = () => {
   return (
-      <div className='w-full h-screen ml-2 mb-96 '>
-          <h3 className='text-4xl font-bold  text-blue-600 my-5'>Category</h3>
+      <div className='grid grid-cols-2 w-full h-screen ml-2 mb-96 '>
+        <div className='w-8/12'>
+        <h3 className='text-4xl font-bold  text-blue-600 my-5'>Category</h3>
 <aside className="w-64  " aria-label="Sidebar">
    <div className=" overflow-y-auto py-4 px-3 bg-gray-50 rounded  sm:px-4 sticky top-44 z-50 ">
       <ul className="space-y-2 ">
@@ -59,6 +60,8 @@ const CatergoryLayout = () => {
       </ul>
            </div>
 </aside>
+         </div>
+        <Outlet></Outlet>
 
     </div>
   )
