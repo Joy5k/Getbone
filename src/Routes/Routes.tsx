@@ -8,6 +8,7 @@ import ContactForm from "../Pages/ContactForm/ContactForm";
 import Wishlist from "../Pages/Wishlist/Wishlist";
 import DashboardLayout from "../layout/DashboardLayout";
 import Details from "../Pages/Details/Details";
+import Booking from "../Pages/Booking/Booking"
 export const router = createBrowserRouter([
     {
         path: '/',
@@ -43,6 +44,10 @@ export const router = createBrowserRouter([
             {
                 path: "/dashboard",
                 element:<DashboardLayout></DashboardLayout>
+            },
+            {
+                path: "/booking",
+                element:<Booking></Booking>
             },
         
             {

@@ -5,7 +5,7 @@ import { useLoaderData } from "react-router-dom";
 
 const Details = () => {
     const data = useLoaderData();
-    const { url, title } = data;
+    const { url, title,id } = data;
     const [quantity, setQuantity] = useState(1)
     const [price, setPrice] = useState(500)
     const addQuantity = () => {
@@ -89,7 +89,7 @@ const Details = () => {
                         </button>
                         <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-sm text-sm px-5 py-2.5 ml-4 mr-4 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 ">Add to cart</button>
                      
-      <Link to="/wishlist" className="block py-2 pl-3 pr-4 mb-1 rounded text-black hover:md:text-blue-700 md:p-0 "> <FaRegHeart className='ml-4 '></FaRegHeart></Link>                     
+     <button > <Link to="/wishlist" className="block py-2 pl-3 pr-4 mb-1 rounded text-black hover:md:text-blue-700 md:p-0 "> <FaRegHeart className='ml-4 '></FaRegHeart></Link>                     </button>
                     </div>
                     <p className="text-xl font-bold text-blue-600 mt-6">Description</p>
                     <p className="w-72 my-12 text-justify"><span className="font-bold ">Description</span> <br /> Lorem ipsum, dolor sit amet consectetur adipisicing elit. Pariatur, similique molestiae, minus minima voluptates, necessitatibus error quibusdam impedit quidem laborum excepturi mollitia provident nobis. Quia modi esse molestias quis expedita!</p>
