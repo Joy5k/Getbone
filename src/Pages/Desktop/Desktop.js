@@ -15,6 +15,7 @@ const Desktop = () => {
                setData(data.slice(0,6))
             })
     }, [])
+    console.log(data);
   return (
       <div className='lg:w-10/12 md:w-10/12 sm:w-full mx-auto '>
           <h3 className='text-4xl font-bold text-blue-600 my-4'>Desktop</h3>
