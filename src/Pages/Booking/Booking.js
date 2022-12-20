@@ -6,7 +6,7 @@ import { useContext } from "react";
 import Spinner from "../../components/Spinner";
 import { useQuery } from "@tanstack/react-query";
 
-const Wishlist = () => {
+const Booking = () => {
     const {user}=useContext(AuthContext)
     const [quantity, setQuantity] = useState(1)
     const [price, setPrice] = useState(500)
@@ -128,4 +128,4 @@ const Wishlist = () => {
   )
 }
 
-export default Wishlist
+export default Booking
