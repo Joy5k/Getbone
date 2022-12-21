@@ -2,17 +2,37 @@ import React,{useContext, useState} from 'react';
 import { AuthContext } from '../../context/Authprovider';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { GoogleAuthProvider, getAuth, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import app from '../../firebase/firebase.init';
+const auth = getAuth(app)
+
+type NewUserProps = {
+  name: string;
+  email: string;
+  password:any
+};
+
+ 
 const SignIn = () => {
-  const { LoginUser, signInWithGoogle } = useContext(AuthContext);
+  const googleProvider = new GoogleAuthProvider();
+  const [user, setUser] = useState<NewUserProps>({ name: "", email: "",password:"" });
   const [error,setError]=useState('')
   const navigate = useNavigate()
-  const handleSignIn = (event) => {
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const fieldName = event.target.name;
+    setUser({ ...user, [fieldName]: event.target.value });
+  };
+
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const form = event.target;
-    const email = form.email.value;
-    const password = form.password.value;
-    console.log(email, password)
-    LoginUser(email, password)
+    // const form = event.target;
+    // const email = form.email.value;
+    // const password = form.password.value
+    console.log(user);
+    console.log(user.email, user.password)
+    signInWithEmailAndPassword(auth, user.email, user.password)
       .then((result) => {
         // Signed in 
         const user = result.user;
@@ -29,7 +49,7 @@ const SignIn = () => {
   
   }
   const handleGoogleSignIn = () => {
-    signInWithGoogle()
+    signInWithPopup(auth,googleProvider)
     .then((result) => {
       const user = result.user;
       navigate('/')
@@ -43,16 +63,16 @@ const SignIn = () => {
   }
     return (
         <div>
-             <form onSubmit={handleSignIn} className='lg:w-4/12 md:w-6/12 sm:w-11/12 mx-auto border-1 bg-slate-200 rounded-lg py-12 px-5 mt-4 mb-40 flex flex-col
+             <form onSubmit={handleSubmit} className='lg:w-4/12 md:w-6/12 sm:w-11/12 mx-auto border-1 bg-slate-200 rounded-lg py-12 px-5 mt-4 mb-40 flex flex-col
            '>
           <h3 className='text-3xl font-bold text-center '>Sign In</h3>
   <div className="mb-6 ">
     <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
-    <input type="email" id="email" name='email' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="email" required/>
+    <input  onChange={handleChange} type="email" id="email" name='email' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="email" required/>
   </div>
   <div className="mb-6">
     <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your password</label>
-    <input type="password" id="password" name='password' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder='****' required/>
+    <input onChange={handleChange} type="password" id="password" name='password' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder='****' required/>
           </div>
           <p className='text-red-600'>{ error}</p>      
   <div className="flex items-start mb-6">

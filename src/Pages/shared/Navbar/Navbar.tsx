@@ -3,17 +3,19 @@ import { useContext } from 'react';
 import { HashRouter as Router, Route, Link } from 'react-router-dom'
 import { AuthContext } from '../../../context/Authprovider';
 import { FaUserAlt,FaShoppingCart,FaRegHeart } from 'react-icons/fa';
-import { type } from 'os';
-import './Navbar'
-type logOut = {
-  logOuterUser:string
+import { getAuth, signOut } from 'firebase/auth';
+import app from '../../../firebase/firebase.init';
+const auth = getAuth(app)
 
-}
+
 const Navbar = () => {
-  const { user} = useContext(AuthContext);
-  // const handleLogout = () => { 
-  //   logOutUser({}as logOut)
-  // }
+  const { user } = useContext(AuthContext);
+  const handleLogout = () => { 
+       signOut(auth)
+  }
+const handlCheck=()=>{
+  console.log('clicked on user img')
+}
   return (
 
 <nav  className="text-white bg-slate-700  px-2 sm:px-4 py-2.5 lg:w-10/12 md:w-10/12 sm:w-full mx-auto ">
@@ -34,14 +36,14 @@ const Navbar = () => {
         <Link to="/"  className=" block py-2 pl-3 pr-4 text-white rounded md:bg-transparent md:p-0 md:hover:text-blue-700" aria-current="page">Home</Link>
       </li>
       <li>
-        <Link to="/"  className="title block py-2 pl-3 pr-4  rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 text-white md:dark:hover:bg-transparent dark:border-gray-700 ">About</Link>
+        <Link to="/"  className="block py-2 pl-3 pr-4  rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 text-white md:dark:hover:bg-transparent dark:border-gray-700 ">About</Link>
       </li>
       <li>
       <div className="hidden w-full md:block md:w-auto" id="navbar-dropdown">
       <ul className="flex flex-col p-1 -mt-1  bg-transparent text-white md:flex-row  ">
        
         <li>
-            <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar" className="flex items-center text-white justify-between w-full py-2 pl-3 pr-4 font-medium   hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-gray-400 dark:hover:text-white dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">Dropdown <svg className="w-5 h-5 ml-1" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></button>
+            <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar" className="flex items-center text-white justify-between w-full py-2 pl-3 pr-4 font-medium   hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-gray-400 dark:hover:text-white dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">Dropdown <svg className="w-5 h-5 ml-1" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd"></path></svg></button>
           
             <div id="dropdownNavbar" className="z-10 hidden font-normal text-white divide-y divide-gray-100 rounded shadow w-44 bg-gray-700 dark:divide-gray-600">
                 <ul className="py-1 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
@@ -85,7 +87,7 @@ const Navbar = () => {
       </li>
             
             <div  className="flex items-center md:order-2 ">
-          <button type="button"  className="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
+          <button onClick={handlCheck} type="button"  className="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
                 <span className="sr-only">Open user menu</span>
                 {
                   user?.photoURL ? <img className="w-8 h-8 rounded-full" src={user?.photoURL} alt='' /> :<FaUserAlt></FaUserAlt>
@@ -106,9 +108,9 @@ const Navbar = () => {
               <li>
                 <Link to="/"  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Settings</Link>
               </li>
-              {/* onClick={handleLogout} */}
+           
                   <li>
-                    <button >
+                    <button onClick={handleLogout}>
                     <Link to='/' className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</Link>
                     </button>
                

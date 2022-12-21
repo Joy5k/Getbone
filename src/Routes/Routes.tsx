@@ -1,8 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../layout/Main";
 import Home from "../Pages/Home/Home";
-import Products from "../Pages/Products/Products";
-import SignIn from "../Pages/SignUp/SignIn";
 import SignUp from "../Pages/SignUp/SignUp";
 import ContactForm from "../Pages/ContactForm/ContactForm";
 import Wishlist from "../Pages/Wishlist/Wishlist";
@@ -13,10 +11,10 @@ import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import AddProduct from "../Pages/Dashboard/AddProduct/AddProduct";
 import MyProducts from "../Pages/Dashboard/MyProduct/MyProducts";
 import Dashboard from "../Pages/Dashboard/Dashboard";
-import CatergoryLayout from "../Pages/CategoryLayout/CatergoryLayout";
 import Phone from "../Pages/Phone/Phone";
 import Desktop from "../Pages/Desktop/Desktop";
 import Laptop from "../Pages/Laptop/Laptop";
+import SignIn from "../Pages/SignUp/SignIn";
 export const router = createBrowserRouter([
     {
         path: '/',
