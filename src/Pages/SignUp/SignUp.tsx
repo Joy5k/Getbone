@@ -10,30 +10,26 @@ type NewUserProps = {
   name: string;
   email: string;
   password: any;
-  userType: string;
-  value:string
+  role: string;
+  
 
 };
 const SignUp = () => {
-  const [user, setUser] = useState<NewUserProps>({ name: "", email: "",password:"",userType: "",value:"" });
-
+  const [user, setUser] = useState<NewUserProps>({ name: "", email: "",password:"",role: "Buyer"});
   const navigate = useNavigate()
-  
+  const [error,setError]=useState('')
+  //get values from input fields
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const fieldName = event.target.name;
     setUser({ ...user, [fieldName]: event.target.value });
     console.log(user);
   };
+  // get selected value
   const handleOption = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const fieldName = event.target.name;
-    
-    // setUser({ ...user, [fieldName]: event.target.value });
-    const selected = {}
     setUser({...user,[fieldName]: event.target.value });
-    console.log(selected);
 }
-
-
+//signUp function
     const handleSignUp = (event: React.MouseEvent<HTMLFormElement>) => {
         event.preventDefault();
         // const from = event.target;
@@ -46,13 +42,27 @@ const SignUp = () => {
         email: user.email,
         password: user.password,
         name: user.name,
-        role:user.userType
+        role:user.role
 
       }
+      setError('')
       createUserWithEmailAndPassword(auth, user.email, user.password)
         .then((result) => {
           // Signed in 
           const user = result.user;
+          fetch('http://localhost:5000/user', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(users)
+            
+          })
+            .then(res => res.json())
+            .then(data => {
+              console.log(data)
+            })
+          .catch(err =>console.log(err))
           navigate('/')
           // ...
         })
@@ -60,20 +70,9 @@ const SignUp = () => {
           const errorCode = error.code;
           const errorMessage = error.message;
           console.log(errorMessage);
+          setError(errorMessage)
         });
-      fetch('http://localhost:5000/user', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(users)
-        
-      })
-        .then(res => res.json())
-        .then(data => {
-          console.log(data)
-        })
-      .catch(err =>console.log(err))
+   
       
       
     }
@@ -93,10 +92,10 @@ const SignUp = () => {
   <div className="mb-6">
     <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your password</label>
     <input  onChange={handleChange} type="password" id="password" name='password' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder='****' required/>
-                </div>
-                
+      </div>
+          <p className='text-red-500'>{error }</p>  
 <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an option</label>
-<select  onChange={handleOption} name='userType' id="countries" className="bg-gray-50 border mb-4 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+<select  onChange={handleOption} name='role' id="countries" className="bg-gray-50 border mb-4 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
   <option  selected value="Buyer">Buyer</option>
             <option value="Seller">Seller</option>
          
