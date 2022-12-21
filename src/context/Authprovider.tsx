@@ -5,28 +5,34 @@ import {createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthState
 import { useState } from 'react';
 import app from '../firebase/firebase.init';
 
-export const AuthContext = createContext()
+interface User {
+  user:any
+  }
+export const AuthContext = createContext({}as User)
 const auth = getAuth(app)
-const AuthProvider = ({ children }) => {
+type childrenType = {
+    children:React.ReactNode
+}
+const AuthProvider = ({ children }:childrenType) => {
     const googleProvider = new GoogleAuthProvider();
     const [loading, setLoading] = useState(true);
-    const [user, setUser] = useState(null)
-    
-    const createUser = (email, password) => {
+    const [user, setUser] = useState<React.SetStateAction<{}>>({});
+
+    const createUser = (email:string, password:string) => {
         setLoading(true)
         return createUserWithEmailAndPassword(auth, email, password)
     }
     const signInWithGoogle = () => {
         return signInWithPopup(auth,googleProvider)
     }
-    const LoginUser = (email, password) => {
+    const LoginUser = (email:string, password:string) => {
         setLoading(true)
         return signInWithEmailAndPassword(auth, email, password)
     }
-    const UpdateUserInfo = (data) => {
-        setLoading(true)
-        return updateProfile(auth.currentUser,data)
-    }
+    // const UpdateUserInfo = (data) => {
+    //     setLoading(true)
+    //     return updateProfile(auth.currentUser,data)
+    // }
     const logOutUser = () => {
         setLoading(true)
         localStorage.removeItem('accessToken')
@@ -35,7 +41,7 @@ const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
-            setUser(currentUser)
+            setUser(()=>currentUser)
             console.log('user', currentUser);
             setLoading(false)
         })
@@ -46,7 +52,7 @@ const AuthProvider = ({ children }) => {
         LoginUser,
         logOutUser,
         signInWithGoogle,
-        UpdateUserInfo,
+        // UpdateUserInfo,
         user,
         loading,
     }

@@ -1,0 +1,21 @@
+
+.title {
+	font-family: "Dancing Script", cursive;
+	font-size: 3rem;
+	color: whitesmoke;
+	position: relative;
+}
+
+.title::after {
+	width: 0%;
+	height: 4px;
+	background-color: whitesmoke;
+	left: 50%;
+	bottom: -10px;
+	transition: all 0.4s ease-in-out;
+}
+
+.container:hover .title::after {
+	width: 100%;
+	left: 0;
+}

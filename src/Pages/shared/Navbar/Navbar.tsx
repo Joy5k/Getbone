@@ -3,13 +3,17 @@ import { useContext } from 'react';
 import { HashRouter as Router, Route, Link } from 'react-router-dom'
 import { AuthContext } from '../../../context/Authprovider';
 import { FaUserAlt,FaShoppingCart,FaRegHeart } from 'react-icons/fa';
+import { type } from 'os';
+import './Navbar'
+type logOut = {
+  logOuterUser:string
 
-
+}
 const Navbar = () => {
-  const { user,logOutUser } = useContext(AuthContext);
-  const handleLogout = () => { 
-    logOutUser()
-  }
+  const { user} = useContext(AuthContext);
+  // const handleLogout = () => { 
+  //   logOutUser({}as logOut)
+  // }
   return (
 
 <nav  className="text-white bg-slate-700  px-2 sm:px-4 py-2.5 lg:w-10/12 md:w-10/12 sm:w-full mx-auto ">
@@ -30,7 +34,7 @@ const Navbar = () => {
         <Link to="/"  className=" block py-2 pl-3 pr-4 text-white rounded md:bg-transparent md:p-0 md:hover:text-blue-700" aria-current="page">Home</Link>
       </li>
       <li>
-        <Link to="/"  className="block py-2 pl-3 pr-4  rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 text-white md:dark:hover:bg-transparent dark:border-gray-700 ">About</Link>
+        <Link to="/"  className="title block py-2 pl-3 pr-4  rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 text-white md:dark:hover:bg-transparent dark:border-gray-700 ">About</Link>
       </li>
       <li>
       <div className="hidden w-full md:block md:w-auto" id="navbar-dropdown">
@@ -102,9 +106,9 @@ const Navbar = () => {
               <li>
                 <Link to="/"  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Settings</Link>
               </li>
-           
+              {/* onClick={handleLogout} */}
                   <li>
-                    <button onClick={handleLogout}>
+                    <button >
                     <Link to='/' className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</Link>
                     </button>
                
