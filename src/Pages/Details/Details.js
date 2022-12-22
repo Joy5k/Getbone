@@ -84,7 +84,6 @@ const Details = () => {
     }
     return (
         <div className="lg:w-10/12 md:w-10/12 sm:w-full mx-auto">
-            <Navbar></Navbar>
       <div className="grid lg:grid-cols-2 sm:grid-cols-1 my-5">
         <img
           class="w-96 h-96 mx-auto"
@@ -152,7 +151,7 @@ const Details = () => {
                         <button onClick={handleAddData} type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-sm text-sm px-5 py-2.5 ml-4 mr-4 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 ">Add to cart</button>
                      
                         <button onClick={handleAddWishlist}>
-                            <Link to="" className="block py-2 pl-3 pr-4 mb-1 rounded text-black hover:md:text-blue-700 md:p-0 "> <FaRegHeart className='ml-4 '></FaRegHeart></Link>
+                            <Link to="" className="block py-2 pl-3 pr-4 mb-1 rounded text-black hover:md:text-blue-700 hover:text-xl md:p-0 "> <FaRegHeart className='ml-4 '></FaRegHeart></Link>
                         </button>
                     </div>
                     <p className="text-xl font-bold text-blue-600 mt-6">Description</p>
