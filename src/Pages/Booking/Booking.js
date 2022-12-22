@@ -36,7 +36,7 @@ const Booking = () => {
      })
      .then(res => res.json())
      .then(data => {
-       console.log('ok');
+       console.log('ok',id);
        refetch()
      })
     }
