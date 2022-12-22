@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useLoaderData } from "react-router-dom";
 import swal from "sweetalert";
 import { AuthContext } from "../../context/Authprovider";
+import Navbar from "../shared/Navbar/Navbar";
 
 const Details = () => {
     const {user}=useContext(AuthContext)
@@ -83,6 +84,7 @@ const Details = () => {
     }
     return (
         <div className="lg:w-10/12 md:w-10/12 sm:w-full mx-auto">
+            <Navbar></Navbar>
       <div className="grid lg:grid-cols-2 sm:grid-cols-1 my-5">
         <img
           class="w-96 h-96 mx-auto"

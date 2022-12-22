@@ -1,9 +1,9 @@
-import React,{useContext, useState} from 'react';
-import { AuthContext } from '../../context/Authprovider';
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import React,{useState} from 'react';
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { GoogleAuthProvider, getAuth, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import app from '../../firebase/firebase.init';
+
+
 const auth = getAuth(app)
 
 type NewUserProps = {
@@ -11,13 +11,20 @@ type NewUserProps = {
   email: string;
   password:any
 };
-
+type LocationProps = {
+  state: {
+    from: Location;
+  };
+};
  
 const SignIn = () => {
   const googleProvider = new GoogleAuthProvider();
   const [user, setUser] = useState<NewUserProps>({ name: "", email: "",password:"" });
-  const [error,setError]=useState('')
+  const [error, setError] = useState('')
+  const location = useLocation();
+  const from = location.state?.from?.pathname || '/';
   const navigate = useNavigate()
+  
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const fieldName = event.target.name;
@@ -27,20 +34,16 @@ const SignIn = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // const form = event.target;
-    // const email = form.email.value;
-    // const password = form.password.value
     console.log(user);
     console.log(user.email, user.password)
     signInWithEmailAndPassword(auth, user.email, user.password)
       .then((result) => {
         // Signed in 
         const user = result.user;
+        // navigate(from, { replace: true })
         navigate('/')
-        // ...
       })
       .catch((error) => {
-        const errorCode = error.code;
         const errorMessage = error.message;
         setError(errorMessage)
         console.log(errorMessage);
@@ -52,7 +55,7 @@ const SignIn = () => {
     signInWithPopup(auth,googleProvider)
     .then((result) => {
       const user = result.user;
-      navigate('/')
+      navigate(from, { replace: true })
 
     }).catch((error) => {
       const errorMessage = error.message;

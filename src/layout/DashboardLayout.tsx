@@ -1,10 +1,10 @@
 import React, { useContext } from 'react'
 import { Outlet } from 'react-router-dom'
-import Navbar from '../Pages/shared/Navbar/Navbar'
 import { Link } from 'react-router-dom'
 import UseAdmin from '../Hooks/useAdmin'
 import { AuthContext } from '../context/Authprovider'
 import UseSeller from '../Hooks/UseSeller'
+import Navbar from '../Pages/shared/Navbar/Navbar'
 
 const DashboardLayout = () => {
   const {user}=useContext(AuthContext)
@@ -35,9 +35,8 @@ const DashboardLayout = () => {
 
 
   return (
-    <div className=' h-screen'>
-      <Navbar></Navbar>
-     
+    <div>
+  
 <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded lg:w-10/12 md:w-10/12 sm:w-full mx-auto text-center shadow-xl lg:mb-20 md:mb-12 sm:mb-4">
   <div className="container flex flex-wrap items-center justify-center mx-auto">
 

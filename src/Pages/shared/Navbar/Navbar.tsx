@@ -7,15 +7,11 @@ import { getAuth, signOut } from 'firebase/auth';
 import app from '../../../firebase/firebase.init';
 const auth = getAuth(app)
 
-
 const Navbar = () => {
   const { user } = useContext(AuthContext);
   const handleLogout = () => { 
        signOut(auth)
   }
-const handlCheck=()=>{
-  console.log('clicked on user img')
-}
   return (
 
 <nav  className="text-white bg-slate-700  px-2 sm:px-4 py-2.5 lg:w-10/12 md:w-10/12 sm:w-full mx-auto ">
@@ -76,49 +72,52 @@ const handlCheck=()=>{
             {
               !user?.uid &&  <li>
               <Link to="/signin" className="block rounded bg-blue-700  
-             text-white  lg:px-3 lg:py-2 ">Sign In</Link>
+             text-white  px-3 py-1 ">Sign In</Link>
            </li>
             }
-<li>
+          <li>
       <Link to="/wishlist" className="block py-2 pl-3 pr-4  rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 text-white md:dark:hover:bg-transparent dark:border-gray-700"> <FaRegHeart className='-mr-3 '></FaRegHeart></Link>                     
       </li>
             <li>
       <Link to="/booking" className="block py-2 pl-3 pr-4  rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 text-white md:dark:hover:bg-transparent dark:border-gray-700"> <FaShoppingCart className='mb-3'></FaShoppingCart></Link>                     
       </li>
             
-            <div  className="flex items-center md:order-2 ">
-          <button onClick={handlCheck} type="button"  className="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
-                <span className="sr-only">Open user menu</span>
-                {
-                  user?.photoURL ? <img className="w-8 h-8 rounded-full" src={user?.photoURL} alt='' /> :<FaUserAlt></FaUserAlt>
-                }
-           
-          </button>
-    
-          <div className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
-            
-            <div  className="px-4 py-3">
-                  <span className="block text-sm text-gray-900 dark:text-white">{user?.displayName}</span>
-                  <span className="block text-sm font-medium text-gray-500 truncate dark:text-gray-400">{user?.email}</span>
-            </div>
-            <ul  className="py-1" aria-labelledby="user-menu-button">
-              <li>
-                <Link to="/dashboard"  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</Link>
-              </li>
-              <li>
-                <Link to="/"  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Settings</Link>
-              </li>
-           
-                  <li>
-                    <button onClick={handleLogout}>
-                    <Link to='/' className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</Link>
-                    </button>
+            {/* {
+              user?.uid &&  */}
+              <div  className="flex items-center md:order-2 ">
+              <button  type="button"  className="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
+                    <span className="sr-only">Open user menu</span>
+                    {
+                      user?.photoURL ? <img className="w-8 h-8 rounded-full" src={user?.photoURL} alt='' /> :<FaUserAlt></FaUserAlt>
+                    }
                
-              </li>
-            </ul>
-          </div>
+              </button>
         
-            </div>
+              <div className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
+                
+                <div  className="px-4 py-3">
+                      <span className="block text-sm text-gray-900 dark:text-white">{user?.displayName}</span>
+                      <span className="block text-sm font-medium text-gray-500 truncate dark:text-gray-400">{user?.email}</span>
+                </div>
+                <ul  className="py-1" aria-labelledby="user-menu-button">
+                  <li>
+                    <Link to="/myprofile"  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">My Profile</Link>
+                  </li>
+                  <li>
+                    <Link to="/dashboard"  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</Link>
+                  </li>
+               
+                      <li>
+                        <button onClick={handleLogout}>
+                        <Link to='/' className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</Link>
+                        </button>
+                   
+                  </li>
+                </ul>
+              </div>
+            
+                </div>
+        {/* } */}
     </ul>
   </div>
   </div>
