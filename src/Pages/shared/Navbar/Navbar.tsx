@@ -17,7 +17,7 @@ const Navbar = () => {
 <nav  className="text-white bg-slate-700  px-2 sm:px-4 py-2.5 lg:w-10/12 md:w-10/12 sm:w-full mx-auto ">
   <div  className="container flex flex-wrap items-center justify-between mx-auto">
   <Link to="/"  className="flex items-center">
-      <img src="https://flowbite.com/docs/images/logo.svg"  className="h-6 mr-3 sm:h-9" alt="Flowbite Logo" />
+      <img src="https://static.vecteezy.com/system/resources/previews/002/986/080/original/letter-g-logo-design-template-free-vector.jpg"  className="h-6 mr-3 sm:h-9 rounded-full" alt="Flowbite Logo" />
       <span  className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Getbone</span>
         </Link>
      

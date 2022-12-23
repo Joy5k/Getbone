@@ -17,12 +17,15 @@ type userProps = {
     title: string;
     quantity: number;
     _id: string;
+    price: any;
 }
+
+
 const Wishlist = () => {
     const { user } = useContext(AuthContext);
     // const [quantity, setQuantity] = useState(1)
     const [price, setPrice] = useState(500);
-    const [productDetail,setProductDetail] = useState({})
+    const [productDetail,setProductDetail] = useState([])
     console.log(user,'this is user email');
   
     const { data: wishlistItems = [] ,refetch,isLoading} = useQuery({
@@ -48,7 +51,14 @@ const Wishlist = () => {
        }
      })
      .then(res => res.json())
-     .then(data => {
+            .then(data => {
+                if (data.acknowledged===true) {
+                    swal(
+                        'Successfully Delete',
+                        " ",
+                        "success"
+                      );
+                }  
        console.log('ok');
        refetch()
      })
@@ -58,7 +68,8 @@ const Wishlist = () => {
         fetch(`http://localhost:5000/wishlist/${_id}`)
             .then(res => res.json())
             .then(data => {
-                console.log(data,'first data')
+                setProductDetail(data)
+                console.log(data.img)
                 fetch(`http://localhost:5000/addToCart`, {
                     method: 'POST',
                     headers: {
@@ -85,7 +96,7 @@ const Wishlist = () => {
     }
     if (isLoading) {
     return <Spinner></Spinner>
-}
+    }
     //increase or decrease quentity items
     // const addQuantity = () => {
         // setQuantity(quantity + 1)
@@ -130,7 +141,7 @@ const Wishlist = () => {
         <td className="py-4 px-6">
             <button className="font-medium btn text-red-700   p-2 rounded-md"></button>
 
-            <button onClick={()=>handleDelete(_id)} data-tooltip-target="tooltip-default" type="button" className="mb-5 font-medium btn text-red-700   p-2 rounded-md  focus:ring-4 focus:outline-none focus:ring-blue-300  text-lg px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"><FaTrashAlt></FaTrashAlt></button>
+            <button onClick={()=>handleDelete(_id)} data-tooltip-target="tooltip-default" type="button" className=" font-medium btn text-red-700   p-2 rounded-md  focus:ring-4 focus:outline-none focus:ring-blue-300  text-lg px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mb-4"><FaTrashAlt></FaTrashAlt></button>
             <div id="tooltip-default" role="tooltip" className="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 transition-opacity duration-300 tooltip dark:bg-gray-700">
                   Delete Item
             <div className="tooltip-arrow" data-popper-arrow></div>
@@ -141,7 +152,8 @@ const Wishlist = () => {
                 <button onClick={()=>handleAddToCart(_id)} 
                     className="btn text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-md  p-2 text-sm">Add to cart</button>
         </td>
-    </tr>)
+        </tr>)
+    
     return (
         <div className='lg:w-10/12 md:w-10/12 sm:w-full mx-auto '>
           
@@ -169,7 +181,8 @@ const Wishlist = () => {
                 </th>
             </tr>
         </thead>
-        <tbody>
+                    <tbody>
+                    
           {Items}
         </tbody>
     </table>
