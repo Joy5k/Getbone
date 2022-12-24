@@ -11,8 +11,6 @@ type NewUserProps = {
   email: string;
   password: any;
   role: string;
-  
-
 };
 const SignUp = () => {
   const [user, setUser] = useState<NewUserProps>({ name: "", email: "",password:"",role: "Buyer"});
@@ -32,12 +30,6 @@ const SignUp = () => {
 //signUp function
     const handleSignUp = (event: React.MouseEvent<HTMLFormElement>) => {
         event.preventDefault();
-        // const from = event.target;
-      //   const email = from.email.value;
-      // const password = from.password.value;
-      // const userType = from.userType.value;
-      // console.log(userType,'check userType');
-      // const name = from.name.value;
       const users = {
         email: user.email,
         password: user.password,
