@@ -17,6 +17,8 @@ import Laptop from "../Pages/Laptop/Laptop";
 import SignIn from "../Pages/SignUp/SignIn";
 import MyProfile from "../Pages/MyProfile/MyProfile";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
+import Report from "../Pages/Report/Report/Report";
+import ReportedProducts from "../Pages/Dashboard/ReportedProducts/ReportedProducts";
 export const router = createBrowserRouter([
     {
         path: '/',
@@ -67,6 +69,12 @@ export const router = createBrowserRouter([
                 path: '/myprofile',
                 element:<PrivateRoute><MyProfile></MyProfile></PrivateRoute>
             },
+            {
+                path: '/report/:id',
+                element: <PrivateRoute><Report></Report></PrivateRoute>,
+                loader:({params})=>fetch(`https://jsonplaceholder.typicode.com/photos/${params.id}`)
+                
+            },
         
             {
                 path: "/details/:id",
@@ -91,6 +99,10 @@ export const router = createBrowserRouter([
                     {
                                 path: '/dashboard/myprodcut',
                                 element:<MyProducts></MyProducts>
+                            },
+                    {
+                                path: '/dashboard/reported',
+                                element:<ReportedProducts></ReportedProducts>
                             },
                 ]
             }
