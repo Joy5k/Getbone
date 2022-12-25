@@ -23,7 +23,7 @@ const DashboardLayout = () => {
 // check seller
   const seller = isSeller && <>
       <li>
-       <Link to="/dashboard" className="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Add Product</Link>
+       <Link to="/dashboard/addproduct" className="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Add Product</Link>
       </li>
       <li>
        <Link to="/dashboard" className="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">My Products</Link>
@@ -37,7 +37,7 @@ const DashboardLayout = () => {
   return (
     <div>
   
-<nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded lg:w-10/12 md:w-10/12 sm:w-full mx-auto text-center shadow-xl lg:mb-20 md:mb-12 sm:mb-4">
+<nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded lg:w-10/12 md:w-10/12 sm:w-full mx-auto text-center shadow-xl lg:mb-10 md:mb-8 sm:mb-4">
   <div className="container flex flex-wrap items-center justify-center mx-auto">
 
   <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-cta">

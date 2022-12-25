@@ -87,13 +87,7 @@ const MyProfile = () => {
     .then(res => res.json())
     .then(data => {
       console.log(data)
-      if (data.acknowledged===true) {
-        swal(
-            'Successfully Added',
-            "check your wishlist",
-            "success"
-          );
-    }    
+    
     })
   
   }
