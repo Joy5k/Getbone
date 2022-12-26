@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const DesktopCard = ({ item }) => {
   const { title,url,id } = item;
-  console.log(item);
+//   console.log(item);
   return (
     <div>
 
