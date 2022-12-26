@@ -14,6 +14,7 @@ const AddProduct = () => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const fieldName = event.target.name;
     setAddproduct({ ...addproduct, [fieldName]: event.target.value });
+    
 
   };
   const handleOption = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -25,7 +26,9 @@ const AddProduct = () => {
     event.preventDefault();
     const current = new Date();
     const time = current.toLocaleDateString("en-BD");
-    setAddproduct({ ...addproduct, ['publishDate']: time,['email']:user?.email })
+    setAddproduct({ ...addproduct,['publishDate']:time })
+    setAddproduct({ ...addproduct,['email']:user?.email })
+    console.log(addproduct)
     fetch('http://localhost:5000/addProduct', {
       method: 'PUT',
       headers: {
@@ -60,6 +63,10 @@ const AddProduct = () => {
             <label htmlFor="last_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Img field</label>
             <input onChange={handleChange} type="text" id="last_name" name="image" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="https://" required />
           </div>
+        <div>
+            <label htmlFor="last_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
+            <input onChange={handleChange} type="number" id="last_name" name="price" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="5000" required />
+          </div>
         
         <div>
             <label htmlFor="company" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Guarantee <span className="text-gray-500 text-sm">(months)</span></label>
@@ -78,13 +85,18 @@ const AddProduct = () => {
             <label htmlFor="visitors" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
             <input onChange={handleChange} type="text" id="visitors" name="description" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="The product is ..." required />
           </div>
+          <div>
+
+   
+          <label htmlFor="visitors" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Product Category</label>
           <select  onChange={handleOption} name='category' id="countries" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Doe" required >
   <option  selected value="Desktop">Desktop</option>
             <option value="Laptop">Laptop</option>
             <option value="Phone">Phone</option>
          
   
-</select>
+            </select>
+            </div>
     </div>
     <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add Product</button>
 </form>

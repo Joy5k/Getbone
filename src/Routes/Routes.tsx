@@ -104,6 +104,10 @@ export const router = createBrowserRouter([
                                 path: '/dashboard/reported',
                                 element:<ReportedProducts></ReportedProducts>
                             },
+                    {
+                                path: '/dashboard/myproducts',
+                                element:<MyProducts></MyProducts>
+                            },
                 ]
             }
         
