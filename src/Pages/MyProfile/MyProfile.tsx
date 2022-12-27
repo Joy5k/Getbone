@@ -87,6 +87,13 @@ const MyProfile = () => {
     .then(res => res.json())
     .then(data => {
       console.log(data)
+      if (data.acknowledged===true) {
+        swal(
+            'Updated Your Profile',
+            "check your My product route",
+            "success"
+          );
+    }   
     
     })
   
@@ -102,8 +109,7 @@ const MyProfile = () => {
   return (
     <div className='sm:flex-col  md:flex-row lg:flex user profile  lg:w-10/12 md:w-10/12 sm:w-full mx-auto'>
       <div className='w-full lg:w-4/12 border h-full p-4 overflow-hidden  border-amber-500 shadow-zinc-900xl'>
-        <h1>user Profile</h1>
-        
+  
 <img className="w-40 h-40 rounded-full " src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7aL6la4_S3lT19P_kgeihVVlOC9XohHtlbha3o_0LwA&s" alt="image description"/>
         <p className=' text-lg font-bold mt-5 mb-3 '>{userInfo?.firstName} {userInfo?.lastName }</p>
     <span className='flex justify-items-start  align-middle items-center '><FaRegGem className='mt-1 text-blue-500 mr-2'></FaRegGem>Premium user</span>

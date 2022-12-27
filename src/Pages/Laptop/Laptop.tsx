@@ -2,16 +2,6 @@ import React, { useEffect, useState } from 'react'
 import LaptopCart from './LaptopCart'
 import { Link } from 'react-router-dom'
 
-type childrenType = {
-    children:React.ReactNode
-}
-type item = {
-    id: number,
-    img:string,
-}
-type LaptopCard =
-  { item: any; }
-    
     type DataType = {
       category:string;
       description:string;

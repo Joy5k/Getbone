@@ -27,7 +27,7 @@ const AddProduct = () => {
     // const current = new Date();
     // const time = current.toLocaleDateString("en-BD");
     // setAddproduct({...addproduct,['publishDate']:time })
-    setAddproduct({...addproduct,['email']:user?.email })
+    setAddproduct({...addproduct,['email']:user.email })
     console.log(addproduct)
     fetch('http://localhost:5000/addProduct', {
       method:'PUT',

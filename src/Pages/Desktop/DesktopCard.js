@@ -2,6 +2,8 @@ import { type } from '@testing-library/user-event/dist/type';
 import React from 'react'
 import { Link } from 'react-router-dom';
 
+
+
 const DesktopCard = ({ item }) => {
   const { title,url,id } = item;
 //   console.log(item);
