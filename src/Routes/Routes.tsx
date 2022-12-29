@@ -79,7 +79,7 @@ export const router = createBrowserRouter([
             {
                 path: "/details/:id",
                 element: <PrivateRoute><Details></Details></PrivateRoute>,
-                loader:({params})=>fetch(`https://jsonplaceholder.typicode.com/photos/${params.id}`)
+                loader:({params})=>fetch(`http://localhost:5000/details/${params.id}`)
                 
             },
             {

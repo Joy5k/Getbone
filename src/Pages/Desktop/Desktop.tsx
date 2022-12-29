@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import DesktopCard from './DesktopCard'
+// import DesktopCard from './DesktopCard'
 import { Link } from 'react-router-dom'
 
 // https://jsonplaceholder.typicode.com/photos
@@ -28,8 +28,7 @@ const Desktop = () => {
                setData(data.slice(0,6))
             })
     }, [])
-    const Desktop= 
-    data.map(({image,title,price,_id}:DataType) =>   <div className="w-full max-w-sm bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
+    const Desktop=data.map(({image,title,price,_id}:DataType) =>   <div className="w-full max-w-sm bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 mx-auto">
     <a href="#">
           <img className="p-8 rounded-t-lg" src={image } alt="product image" />
     </a>
@@ -54,7 +53,7 @@ const Desktop = () => {
   return (
       <div className='lg:w-10/12 md:w-10/12 sm:w-full mx-auto '>
           <h3 className='text-4xl font-bold text-blue-600 my-4'>Desktop</h3>
-          <div className='grid grid-cols-3 gap-4'>
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-11/12 mx-auto'>
         {Desktop}
           </div>
       </div>

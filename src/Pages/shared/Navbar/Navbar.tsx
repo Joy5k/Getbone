@@ -14,7 +14,7 @@ const Navbar = () => {
   }
   return (
 
-<nav  className="text-white bg-slate-700  px-2 sm:px-4 py-2.5 lg:w-10/12 md:w-10/12 sm:w-full mx-auto ">
+<nav  className="sm:w-full md:w-10/12 lg:w-10/12 mx-auto text-white bg-slate-700  px-2 sm:px-4 py-2.5  ">
   <div  className="container flex flex-wrap items-center justify-between mx-auto">
   <Link to="/"  className="flex items-center">
       <img src="https://static.vecteezy.com/system/resources/previews/002/986/080/original/letter-g-logo-design-template-free-vector.jpg"  className="h-6 mr-3 sm:h-9 rounded-full" alt="Flowbite Logo" />
