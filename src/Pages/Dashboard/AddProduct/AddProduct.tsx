@@ -1,9 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { useContext } from "react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Spinner from "../../../components/Spinner";
 import { AuthContext } from "../../../context/Authprovider";
 import swal from "sweetalert";
 

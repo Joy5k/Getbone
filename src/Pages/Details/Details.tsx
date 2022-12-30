@@ -1,7 +1,6 @@
 import React,{useContext, useState,useEffect} from "react";
-import { FaCheck, FaExchangeAlt, FaExclamationTriangle, FaRegHeart, FaSmileBeam } from "react-icons/fa";
+import { FaCheck, FaExclamationTriangle, FaRegHeart } from "react-icons/fa";
 import { Link, useParams } from "react-router-dom";
-import { useLoaderData } from "react-router-dom";
 import swal from "sweetalert";
 import { AuthContext } from "../../context/Authprovider";
 type data = {
@@ -9,10 +8,10 @@ type data = {
     title: string;
     _id: string;
     image: string;
-    price: string;
+    price: number;
     guarantee:any,
     warranty: any,
-    quantity: any,
+    quantity: number,
     description: any;
     [product: string]:any
 }
@@ -27,18 +26,11 @@ const Details = () => {
     const [detail, setDetail] = React.useState<MyObject>({});
     // const data = useLoaderData();
     const data = useParams();
-    console.log(detail.title)
-    // const {url,title,id,image,warranty,description}=product
-
-    // const { url, title,_id,image } = product;
-    // const [quantity, setQuantity] = useState(1);
-    // const singleData = data[0];
-    // console.log(singleData._id);
     const productDetails = {
         // img:url,
         email: user.email,
         title:detail.title,
-        _id:detail._id,
+        // _id:detail._id,
     image:detail.image,
     price:detail.price,
     guarantee:detail.guarantee,
@@ -83,7 +75,7 @@ const Details = () => {
     // add to wishlist
 
     const handleAddWishlist = () => {
-        fetch(`http://localhost:5000/addwishlist/${data.id}`, {
+        fetch(`http://localhost:5000/addwishlist/${data._id}`, {
             method: 'POST',
             headers: {
                 'content-type':'application/json',
@@ -188,7 +180,8 @@ const Details = () => {
                          <button onClick={handleAddWishlist}>
                              <Link to="" className="block py-2 pl-3 pr-4 mb-1 rounded text-black hover:md:text-blue-700 hover:text-xl md:p-0 "> <FaRegHeart className='ml-4 '></FaRegHeart></Link>
                          </button>
-                     </div>
+                    </div>
+                <p className="w-full text-gray-400"> Total-price:<input type="number"  value={price*quantity} className=" border-none" disabled/></p>
                      </div>
              </div>
              <p className="text-xl font-bold text-blue-600 mt-6">Description</p>
