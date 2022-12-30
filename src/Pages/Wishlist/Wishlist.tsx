@@ -1,6 +1,5 @@
 
 import React,{useState,useContext} from "react";
-import ShareButton from "../../components/ShareButton";
 import { FaTrashAlt } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
 import { AuthContext } from "../../context/Authprovider";
@@ -8,26 +7,24 @@ import { type } from "os";
 import swal from "sweetalert";
 import Spinner from "../../components/Spinner";
 
-interface User {
-    _id:any
-    }
-
 type userProps = {
-    img:string;
+    url: string; 
     title: string;
-    quantity: number;
     _id: string;
-    price: any;
+    image: string;
+    price: number;
+    guarantee:any,
+    warranty: any,
+    quantity: number,
+    description: any;
 }
 
 
 const Wishlist = () => {
     const { user } = useContext(AuthContext);
     // const [quantity, setQuantity] = useState(1)
-    const [price, setPrice] = useState(500);
-    const [productDetail,setProductDetail] = useState([])
-    console.log(user,'this is user email');
-  
+    // const [price, setPrice] = useState(500);
+    const [productDetail,setProductDetail] = useState([])  
     const { data: wishlistItems = [] ,refetch,isLoading} = useQuery({
         queryKey: ["wislist"],
         queryFn: async () => {
@@ -41,7 +38,7 @@ const Wishlist = () => {
           return data;
         },
     })
-    
+    console.log(wishlistItems);
     const handleDelete = (_id: string) => {
         fetch(`http://localhost:5000/wishlist/${_id}`,
      {
@@ -59,7 +56,7 @@ const Wishlist = () => {
                         "success"
                       );
                 }  
-       console.log('ok');
+       console.log('ok',_id);
        refetch()
      })
     }
@@ -97,12 +94,12 @@ const Wishlist = () => {
     if (isLoading) {
     return <Spinner></Spinner>
     }
-    //increase or decrease quentity items
+    // increase or decrease quentity items
     // const addQuantity = () => {
-        // setQuantity(quantity + 1)
-        // const totalPrice = quantity *500 ;
-        // setPrice(totalPrice)
-        // console.log(totalPrice)
+    //     setQuantity(quantity + 1)
+    //     const totalPrice = quantity *price ;
+    //     setPrice(totalPrice)
+    //     console.log(totalPrice)
     // }
     // const removeQuentity = () => {
     //     setQuantity(quantity - 1)
@@ -110,11 +107,10 @@ const Wishlist = () => {
     //     setPrice(totalPrice)
     //     console.log(totalPrice)
     // }
-    const Items = wishlistItems.map(({img, title,quantity,_id}: userProps)=>
+    const Items = wishlistItems.map(({_id,title, image,price,guarantee,warranty,description,quantity}: userProps)=>
         <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
         <td className="p-4 w-32">
-              
-                <img src={img} alt="Apple Watch" />
+                <img src={image} alt="Apple Watch" />
         </td>
         <td className="py-4 px-6 font-semibold text-gray-900 dark:text-white">
            {title}
@@ -135,7 +131,7 @@ const Wishlist = () => {
             </div>
         </td>
         <td className="py-4 px-6 font-semibold text-gray-900 dark:text-white">
-         <input type="number" className="border-none" value={price} disabled />
+         <input type="number" className="border-none" value={price*quantity} disabled />
        
         </td>
         <td className="py-4 px-6">
