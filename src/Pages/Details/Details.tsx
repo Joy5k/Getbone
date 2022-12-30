@@ -105,8 +105,8 @@ const Details = () => {
         setPrice(totalPrice)
         console.log(totalPrice)
     }
-    const details = product.map(({_id,title, image, quantity,price,guarantee,warranty,description}: data) => {
-        <div>
+    const details = product.map(({_id,title, image,price,guarantee,warranty,description}: data) => {
+   return     <div>
         <div className="grid lg:grid-cols-2 sm:grid-cols-1 my-5">
     <img
        className="w-96 h-96 mx-auto"
@@ -115,7 +115,7 @@ const Details = () => {
           />
           <div className=" lg:w-full sm:w-6/12 mx-auto sm:mt-4 ">
                 <h3 className="text-3xl font-bold">{title}</h3>
-                <p className="text-2xl font-bold text-gray-900 my-4">$599</p>
+               <p className="text-2xl font-bold text-gray-900 my-4">${price }</p>
 
                 {/* tick itemst                */}
 <ul  className="mb-8 space-y-4 text-left text-gray-500 dark:text-gray-400">
@@ -131,12 +131,12 @@ const Details = () => {
 <li  className="flex items-center space-x-3">
   
 <FaCheck  className="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400"></FaCheck>
-    <span>Replacement Guarantee: <span  className="font-semibold text-gray-900 dark:text-white">6 months</span></span>
+                       <span>Replacement Guarantee: <span className="font-semibold text-gray-900 dark:text-white">{guarantee } months</span></span>
 </li>
 <li  className="flex items-center space-x-3">
 
 <FaCheck  className="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400"></FaCheck>
-    <span>warranty: <span  className="font-semibold text-gray-900 dark:text-white">1 year</span></span>
+                       <span>warranty: <span className="font-semibold text-gray-900 dark:text-white">{warranty } months</span></span>
 </li>
 <li  className="flex items-center space-x-3">
  
@@ -180,7 +180,7 @@ const Details = () => {
                 </div>
         </div>
         <p className="text-xl font-bold text-blue-600 mt-6">Description</p>
-                <p className="w-11/12 lg:w-[800px] my-12 text-justify"><span className="font-bold  ">Description</span> <br /> Lorem ipsum, dolor sit amet consectetur adipisicing elit. Pariatur, similique molestiae, minus minima voluptates, necessitatibus error quibusdam impedit quidem laborum excepturi mollitia provident nobis. Quia modi esse molestias quis expedita!</p>
+       <p className="w-11/12 lg:w-[800px] my-12 text-justify"><span className="font-bold  ">{title }</span> <br />{description }</p>
          <p className="text-md font-bold mb-2">Report the Product</p>
      <Link to={`/report/${_id}`}>   <button className="w-32 bg-red-600 text-white  flex items-center justify-center p-2 rounded-md mb-12"><span>Report</span><FaExclamationTriangle className="ml-1"></FaExclamationTriangle></button></Link>
     
