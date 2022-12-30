@@ -19,6 +19,7 @@ import MyProfile from "../Pages/MyProfile/MyProfile";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import Report from "../Pages/Report/Report/Report";
 import ReportedProducts from "../Pages/Dashboard/ReportedProducts/ReportedProducts";
+import Upcoming from "../Pages/Wishlist/Upcoming/Upcoming";
 export const router = createBrowserRouter([
     {
         path: '/',
@@ -53,6 +54,10 @@ export const router = createBrowserRouter([
             {
                 path: "/laptop",
                 element:<Laptop></Laptop>
+            },
+            {
+                path: '/upcoming',
+                element:<Upcoming></Upcoming>
             },
         
         

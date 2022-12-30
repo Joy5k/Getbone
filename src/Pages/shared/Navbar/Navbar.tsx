@@ -56,7 +56,7 @@ const Navbar = () => {
                 </ul>
                 <div className="py-1">
                 <li>
-                    <Link to="/" className="block px-4 py-2 bg-gray-600 hover:bg-gray-500 text-white">Up coming Features</Link>
+                    <Link to="/upcoming" className="block px-4 py-2 bg-gray-600 hover:bg-gray-500 text-white">Up coming Features</Link>
                   </li>
                 </div>
             </div>
