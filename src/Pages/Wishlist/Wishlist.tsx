@@ -18,13 +18,15 @@ type userProps = {
     quantity: number,
     description: any;
 }
-
+interface MyObject {
+    [k: string]: any;
+  }
 
 const Wishlist = () => {
     const { user } = useContext(AuthContext);
-    // const [quantity, setQuantity] = useState(1)
-    // const [price, setPrice] = useState(500);
-    const [productDetail,setProductDetail] = useState([])  
+
+
+    const [productDetail,setProductDetail] = React.useState<MyObject>({});
     const { data: wishlistItems = [] ,refetch,isLoading} = useQuery({
         queryKey: ["wislist"],
         queryFn: async () => {
@@ -66,13 +68,24 @@ const Wishlist = () => {
             .then(res => res.json())
             .then(data => {
                 setProductDetail(data)
-                console.log(data.img)
-                fetch(`http://localhost:5000/addToCart`, {
+                const productDetails = {
+                    title:productDetail.title,
+                    // _id:productDetail._id,
+                image:productDetail.image,
+                price:productDetail.price,
+                // guarantee:productDetail.guarantee,
+                // warranty:productDetail.warranty,
+                    quantity:productDetail.quantity,
+                //  description: productDetail.description,
+                 email: user.email,
+                }
+                console.log(productDetails,'the data send in db')
+                fetch('http://localhost:5000/addToCart', {
                     method: 'POST',
                     headers: {
                         'content-type':'application/json',
                     },
-                    body: JSON.stringify(data)
+                    body:JSON.stringify(productDetails)
                 
                 })
                     .then(res => res.json())
@@ -89,24 +102,13 @@ const Wishlist = () => {
                     
                     })
             })
+        .catch(error=>console.log(error,'when I try to add to card'))
         console.log('click');
     }
     if (isLoading) {
     return <Spinner></Spinner>
     }
-    // increase or decrease quentity items
-    // const addQuantity = () => {
-    //     setQuantity(quantity + 1)
-    //     const totalPrice = quantity *price ;
-    //     setPrice(totalPrice)
-    //     console.log(totalPrice)
-    // }
-    // const removeQuentity = () => {
-    //     setQuantity(quantity - 1)
-    //     const totalPrice = quantity *500 ;
-    //     setPrice(totalPrice)
-    //     console.log(totalPrice)
-    // }
+  
     const Items = wishlistItems.map(({_id,title, image,price,guarantee,warranty,description,quantity}: userProps)=>
         <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
         <td className="p-4 w-32">
