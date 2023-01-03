@@ -20,6 +20,8 @@ import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import Report from "../Pages/Report/Report/Report";
 import ReportedProducts from "../Pages/Dashboard/ReportedProducts/ReportedProducts";
 import Upcoming from "../Pages/Wishlist/Upcoming/Upcoming";
+import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
+import AllSellers from "../Pages/Dashboard/AllSellers/AllSellers";
 export const router = createBrowserRouter([
     {
         path: '/',
@@ -109,9 +111,17 @@ export const router = createBrowserRouter([
                                 path: '/dashboard/reported',
                                 element:<ReportedProducts></ReportedProducts>
                             },
-                    {
+                             {
                                 path: '/dashboard/myproducts',
                                 element:<MyProducts></MyProducts>
+                            },
+                             {
+                                path: '/dashboard/allusers',
+                                element:<AllUsers></AllUsers>
+                            },
+                             {
+                                path: '/dashboard/allsellers',
+                                element:<AllSellers></AllSellers>
                             },
                 ]
             }
