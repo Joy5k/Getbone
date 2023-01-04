@@ -3,7 +3,7 @@ import React, { useContext, useState, useEffect } from "react";
 import swal from "sweetalert";
 
 type productsProps = {
-    img:string;
+    image:string;
     title: string;
     quantity: number;
     _id: string;
@@ -46,12 +46,12 @@ const ReportedProducts = () => {
        refetch()
      })
     }
+console.log(items)
 
-
-    const products = items.map(({ img, title, _id, price,email,message,reportedItem }: productsProps)  => 
+    const products = items.map(({ image, title, _id, price,email,message,reportedItem }: productsProps)  => 
         <div className="flex flex-col items-center h-72 w-full bg-white border rounded-lg shadow-md md:flex-row  hover:bg-gray-100 my-6 ">
                 
-        <img  className="object-cover w-5/12  h-72 " src={reportedItem.url} alt=""/>
+        <img  className="object-cover w-5/12  h-72 " src={image} alt=""/>
         <div className=" p-4 w-8/12 h-full relative ">
                 <h5 className="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white">{reportedItem.title}</h5>
          <p className="mb-3 font-medium text-gray-700 dark:text-gray-400">Reporter Email: {email }</p>

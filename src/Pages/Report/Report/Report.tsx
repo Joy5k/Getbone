@@ -33,7 +33,7 @@ const Report = () => {
         setReportedData(newData)
     }
     const handleReport = () => {
-        console.log(reportedData);
+        console.log(reportedData,'reported data');
         fetch(`http://localhost:5000/report`, {
             method: 'POST',
             headers: {
