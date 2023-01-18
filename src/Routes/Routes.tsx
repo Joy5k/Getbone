@@ -22,10 +22,12 @@ import ReportedProducts from "../Pages/Dashboard/ReportedProducts/ReportedProduc
 import Upcoming from "../Pages/Wishlist/Upcoming/Upcoming";
 import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
 import AllSellers from "../Pages/Dashboard/AllSellers/AllSellers";
+import ErrorPage from "../Pages/ErroPage/ErrorPage";
 export const router = createBrowserRouter([
     {
         path: '/',
         element: <Main></Main>,
+        errorElement:<ErrorPage></ErrorPage>,
         children: [
             {
                 path: "/",
@@ -92,7 +94,7 @@ export const router = createBrowserRouter([
             {
                 path: '/dashboard',
                 element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
-                // errorElement:<ErrorPage></ErrorPage>,
+                errorElement:<ErrorPage></ErrorPage>,
                 children: [
                     {
                         path: "/dashboard",

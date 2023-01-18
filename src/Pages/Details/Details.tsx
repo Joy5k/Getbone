@@ -193,7 +193,7 @@ const Details = () => {
          })
 
     return (
-        <div className="lg:w-10/12 md:w-10/12 sm:w-full mx-auto">
+        <div className="lg:w-10/12 md:w-10/12 sm:w-full mx-auto bg-white p-2">
         {details}
         </div>
   );
