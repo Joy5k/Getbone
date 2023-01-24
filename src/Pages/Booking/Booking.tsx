@@ -70,7 +70,7 @@ const Booking = () => {
         key={_id}  
         className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
     <td className="p-4 w-32">
-        <img src={image} alt="Apple Watch" />
+        <img src={image} alt="Product Image" />
     </td>
     <td className="py-4 px-6 font-semibold text-gray-900 dark:text-white">
        {title}
@@ -97,7 +97,7 @@ const Booking = () => {
 
    
     return (
-        <div className='lg:w-10/12 md:w-10/12 sm:w-full mx-auto '>
+        <div className='lg:w-10/12 md:w-10/12 sm:w-full mx-auto mt-10 '>
         {
           isLoading ? <><Spinner></Spinner></> :<><div className="overflow-x-auto relative shadow-md sm:rounded-lg ">
           <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
