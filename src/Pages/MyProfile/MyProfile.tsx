@@ -108,7 +108,7 @@ const MyProfile = () => {
   
   return (
     <div className='sm:flex-col  md:flex-row lg:flex user profile  lg:w-10/12 md:w-10/12 sm:w-full mx-auto'>
-      <div className='w-full lg:w-4/12 border h-full p-4 overflow-hidden  border-amber-500 shadow-zinc-900xl'>
+      <div className='w-full lg:w-4/12 border h-full p-4 overflow-hidden  border-gray-200 shadow-gray-300 shadow-2xl rounded-md lg:mr-5'>
   
 <img className="w-40 h-40 rounded-full " src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7aL6la4_S3lT19P_kgeihVVlOC9XohHtlbha3o_0LwA&s" alt="image description"/>
         <p className=' text-lg font-bold mt-5 mb-3 '>{userInfo?.firstName} {userInfo?.lastName }</p>
@@ -136,7 +136,7 @@ const MyProfile = () => {
       </div>
 
 {/* // User input Field */}
-      <div className='w-full border border-red-400 p-4 '>
+      <div className='w-full border  border-gray-200 shadow-gray-300 shadow-2xl p-4 mb-10'>
         <form onSubmit={handleUpdatedProfile}>
           <div className="my-4 mb-8">
             <p className='text-md font-semibold'>Upload Image</p>

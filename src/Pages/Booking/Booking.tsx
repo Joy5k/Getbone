@@ -1,10 +1,8 @@
-
 import React,{useState} from "react";
 import { AuthContext } from "../../context/Authprovider";
 import { useContext } from "react";
 import Spinner from "../../components/Spinner";
 import { useQuery } from "@tanstack/react-query";
-
 
 type userProps = {
   url: string; 
@@ -23,7 +21,6 @@ const Booking = () => {
     const [quantity, setQuantity] = useState(1)
     const [price, setPrice] = useState(500)
     // const [loader, setLoader] = useState(false);
-  
     const { data: booked = [] ,refetch,isLoading} = useQuery({
         queryKey: ["booked"],
         queryFn: async () => {
@@ -61,7 +58,6 @@ const Booking = () => {
        refetch()
      })
     }
-
     if (isLoading) {
         <Spinner></Spinner>
     }
