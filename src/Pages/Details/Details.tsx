@@ -189,7 +189,7 @@ const Details = () => {
              <p className="text-xl font-bold text-blue-600 mt-6">Description</p>
             <p className="w-11/12 lg:w-[800px] my-12 text-justify"><span className="font-bold  ">{title }</span> <br />{description }</p>
               <p className="text-md font-bold mb-2">Report the Product</p>
-          <Link to={`/report/${_id}`}>   <button className="w-32 bg-red-600 text-white  flex items-center justify-center p-2 rounded-md mb-12"><span>Report</span><FaExclamationTriangle className="ml-1"></FaExclamationTriangle></button></Link>
+          <Link to={`/report/${_id}`}>   <button className="w-32 bg-red-500 text-white  flex items-center justify-center p-2 rounded-md hover:rounded-full hover:bg-red-600 mb-12"><span>Report</span><FaExclamationTriangle className="ml-1"></FaExclamationTriangle></button></Link>
          
      </div>
          })
