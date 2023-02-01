@@ -106,7 +106,9 @@ const Wishlist = () => {
         console.log('click');
     }
     if (isLoading) {
-    return <Spinner></Spinner>
+        return <div className="h-full">
+        <Spinner></Spinner>
+    </div>
     }
   
     const Items = wishlistItems.map(({_id,title, image,price,guarantee,warranty,description,quantity}: userProps)=>
@@ -153,7 +155,7 @@ const Wishlist = () => {
         </tr>)
     
     return (
-        <div className='lg:w-10/12 md:w-10/12 sm:w-full mx-auto '>
+        <div className='lg:w-10/12 md:w-10/12 sm:w-full mx-auto max-h-full '>
           
 <div className="overflow-x-auto relative shadow-md sm:rounded-lg ">
     <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
