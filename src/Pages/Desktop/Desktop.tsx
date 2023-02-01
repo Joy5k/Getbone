@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 // import DesktopCard from './DesktopCard'
 import { Link } from 'react-router-dom'
+import Spinner from '../../components/Spinner'
 
 // https://jsonplaceholder.typicode.com/photos
 type childrenType = {
@@ -20,14 +21,20 @@ type DataType = {
     _id:string
     }
 const Desktop = () => {
-    const [data,setData]=useState([])
+    const [data, setData] = useState([])
+    const[loader,setLoader]=useState(true)
     useEffect(() => {
+        setLoader(true)
         fetch('http://localhost:5000/desktop?category=Desktop')
             .then(res => res.json())
            .then(data => {
-               setData(data.slice(0,6))
+               setData(data.slice(0, 6))
+               setLoader(false)
             })
     }, [])
+    if (loader === true) {
+       return <Spinner></Spinner>
+    }
     const Desktop=data.map(({image,title,price,_id}:DataType) =>   <div className="w-full max-w-sm bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 mx-auto">
     <a href="#">
           <img className="p-8 rounded-t-lg" src={image } alt="product image" />
