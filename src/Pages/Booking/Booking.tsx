@@ -33,6 +33,18 @@ const Booking = () => {
           return data;
         },
       });
+  const { data: booke = [] } = useQuery({
+        queryKey: ["booked"],
+        queryFn: async () => {
+          const res = await fetch(`http://localhost:5000/addData?email=${user?.email}`, {
+            headers: {
+              authorization:`bearer ${localStorage.getItem('accessToken')}`
+            }
+          });
+            const data = await res.json();
+          return data;
+        },
+      });
   console.log(booked,'see the result')
       const handleRemove = (_id:string) => {
         fetch(`http://localhost:5000/addData/${_id}`,
@@ -90,8 +102,6 @@ const Booking = () => {
         <button className="btn text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-md  p-2 text-sm">Buy Now</button>
     </td>
 </tr>)
-
-   
     return (
         <div className='lg:w-10/12 md:w-10/12 sm:w-full mx-auto mt-10 '>
         {

@@ -37,6 +37,16 @@ const Details = () => {
         quantity:quantity,
     description:detail.description,
     }
+    const wishListProductDetails = {
+        email: user.email,
+        title:detail.title,
+    image:detail.image,
+   price: detail.price,
+    guarantee:detail.guarantee,
+    warranty:detail.warranty,
+        quantity:quantity,
+    description:detail.description,
+    }
     console.log(detail,'this is data');
     useEffect(() => {
         fetch(`http://localhost:5000/details/${data.id}`)
@@ -76,7 +86,7 @@ const Details = () => {
             headers: {
                 'content-type':'application/json',
             },
-            body: JSON.stringify(productDetails)
+            body: JSON.stringify(wishListProductDetails)
         })
             .then(res => res.json())
             .then(data => {
