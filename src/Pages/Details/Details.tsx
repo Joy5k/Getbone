@@ -24,20 +24,20 @@ const Details = () => {
     const [product, setProduct] = useState([]);
     const [quantity,setQuantity]=useState(1)
     const [detail, setDetail] = React.useState<MyObject>({});
-    // const data = useLoaderData();
+    const [taka, setTaka] = useState(0)
     const data = useParams();
+
     const productDetails = {
-        // img:url,
         email: user.email,
         title:detail.title,
-        // _id:detail._id,
     image:detail.image,
-    price:detail.price,
+   price: detail.price*quantity,
     guarantee:detail.guarantee,
     warranty:detail.warranty,
         quantity:quantity,
     description:detail.description,
     }
+    console.log(detail,'this is data');
     useEffect(() => {
         fetch(`http://localhost:5000/details/${data.id}`)
             .then(res => res.json())
@@ -46,7 +46,7 @@ const Details = () => {
                 setDetail(data[0])
                 console.log(data,'got the details')
             })
-    },[data.id])
+    }, [data.id])
     const handleAddData = () => {
         fetch(`http://localhost:5000/addData/${data.id}`, {
             method: 'POST',
@@ -65,13 +65,9 @@ const Details = () => {
                         "check your cart",
                         "success"
                       );
-                }    
-             
-            
+                }   
             })
-     console.log('clicked')
     }
-
     // add to wishlist
 
     const handleAddWishlist = () => {
@@ -81,7 +77,6 @@ const Details = () => {
                 'content-type':'application/json',
             },
             body: JSON.stringify(productDetails)
-        
         })
             .then(res => res.json())
             .then(data => {
@@ -94,21 +89,19 @@ const Details = () => {
                       );
                 }    
             })
-     console.log('clicked')
     }
   
-    const [price, setPrice] = useState(500)
+
     const addQuantity = () => {
         setQuantity(quantity + 1)
         const totalPrice = quantity *500 ;
-        setPrice(totalPrice)
-        console.log(totalPrice)
+        setTaka(totalPrice)
+        console.log(totalPrice,'totalPrice');
     }
     const removeQuentity = () => {
         setQuantity(quantity - 1)
         const totalPrice = quantity *500 ;
-        setPrice(totalPrice)
-        console.log(totalPrice)
+        setTaka(totalPrice)
     }
     const details = product.map(({_id,title, image,price,guarantee,warranty,description}: data) => {
         return     <div>
@@ -121,7 +114,6 @@ const Details = () => {
                <div className=" lg:w-full sm:w-6/12 mx-auto sm:mt-4 ">
                      <h3 className="text-3xl font-bold">{title}</h3>
                     <p className="text-2xl font-bold text-gray-900 my-4">${price }</p>
-     
                      {/* tick itemst                */}
      <ul  className="mb-8 space-y-4 text-left text-gray-500 dark:text-gray-400">
      <li  className="flex items-center space-x-3">
