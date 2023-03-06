@@ -106,28 +106,6 @@ const Wishlist = () => {
     //     console.log('click');
     // }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     const handleAddToCart = (_id: string) => {
   // Fetch the product details from the wishlist using the _id
   fetch(`http://localhost:5000/wishlist/${_id}`)
@@ -158,7 +136,26 @@ const Wishlist = () => {
             'Successfully Added',
             "check your cart",
             "success"
-          );
+            );
+            fetch(`http://localhost:5000/wishlist/${_id}`,
+            {
+              method: 'DELETE',
+              headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+              }
+            })
+            .then(res => res.json())
+                   .then(data => {
+            //            if (data.acknowledged===true) {
+            //                swal(
+            //                    "Added to Cart",
+            //                    " ",
+            //                    "success"
+            //                  );
+            //            }  
+            //   console.log('ok',_id);
+              refetch()
+            })
         }
       })
     })
