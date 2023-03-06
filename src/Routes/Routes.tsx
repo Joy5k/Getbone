@@ -125,6 +125,10 @@ export const router = createBrowserRouter([
                                 path: '/dashboard/allsellers',
                                 element:<AllSellers></AllSellers>
                             },
+                             {
+                                path: '/dashboard/reported',
+                                element:<AllSellers></AllSellers>
+                            },
                 ]
             }
         
