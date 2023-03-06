@@ -59,22 +59,22 @@ const MyProfile = () => {
   };
   const handleUpdatedProfile = (event: React.MouseEvent<HTMLFormElement>) => {
     event.preventDefault();
-//     const data = images[0];
-//       const image = data['file']
-//     console.log(image, 'got the img');
-//     const formData = new FormData();
-//     formData.append('image', image);
-//     fetch('https://api.imgbb.com/1/upload?key=71901a2f0c4b89a9fd3ecca12b72d964', {
-//   method: 'POST',
-//   body: formData
-// })
-//   .then((response) => response.json())
-//   .then((result) => {
-//     console.log('Success:', result);
-//   })
-//   .catch((error) => {
-//     console.log('Error:', error);
-//   });
+    const data = images[0];
+      const image = data['file']
+    console.log(image, 'got the img');
+    const formData = new FormData();
+    formData.append('image', image);
+    fetch('https://api.imgbb.com/1/upload?key=71901a2f0c4b89a9fd3ecca12b72d964', {
+  method: 'POST',
+  body: formData
+})
+  .then((response) => response.json())
+  .then((result) => {
+    console.log('Success:', result);
+  })
+  .catch((error) => {
+    console.log('Error:', error);
+  });
  
   fetch(`http://localhost:5000/user/${id}`, {
     method:'POST',

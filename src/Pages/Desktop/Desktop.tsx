@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Spinner from '../../components/Spinner'
 
+
 // https://jsonplaceholder.typicode.com/photos
 type childrenType = {
     children:React.ReactNode
@@ -35,7 +36,9 @@ const Desktop = () => {
     if (loader === true) {
        return <Spinner></Spinner>
     }
-    const Desktop=data.map(({image,title,price,_id}:DataType) =>   <div className="w-full max-w-sm bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 mx-auto">
+    const Desktop = data.map(({ image, title, price, _id }: DataType) => <div data-aos="flip-left"
+    data-aos-duration="800"   
+        className="w-full max-w-sm bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 mx-auto">
     <a href="#">
           <img className="p-8 rounded-t-lg" src={image } alt="product image" />
     </a>
@@ -58,13 +61,13 @@ const Desktop = () => {
     </div>
 </div>)
   return (
-      <div className='lg:w-10/12 md:w-10/12 sm:w-full mx-auto '>
+      <div  className='lg:w-10/12 md:w-10/12 sm:w-full mx-auto '>
           <h3 className='text-4xl font-bold text-blue-600 my-4'>Desktop</h3>
-          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-11/12 mx-auto'>
-        {Desktop}
+          <div  className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-11/12 mx-auto'>    
+      {Desktop}
           </div>
       </div>
+    
   )
 }
-
 export default Desktop

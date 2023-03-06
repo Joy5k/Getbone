@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import AuthProvider from './context/Authprovider';
 import { QueryClientProvider,QueryClient } from '@tanstack/react-query';
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
 const queryClient = new QueryClient()
 const root = ReactDOM.createRoot(

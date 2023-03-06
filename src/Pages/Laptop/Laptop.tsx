@@ -26,7 +26,9 @@ const Laptop = () => {
             })
     }, [])
 const Laptop= 
-    data.map(({image,title,price,_id}:DataType) =>   <div className="w-full max-w-sm bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
+    data.map(({ image, title, price, _id }: DataType) => <div data-aos="zoom-in"
+        data-aos-duration="800"
+        className="w-full max-w-sm bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
     <a href="#">
           <img className="p-8 rounded-t-lg" src={image } alt="product image" />
     </a>
