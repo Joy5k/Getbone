@@ -63,48 +63,110 @@ const Wishlist = () => {
      })
     }
 
-    const handleAddToCart = (_id: string) => {
-        fetch(`http://localhost:5000/wishlist/${_id}`)
-            .then(res => res.json())
-            .then(data => {
-                setProductDetail(data)
-                const productDetails = {
-                    title:productDetail.title,
-                    // _id:productDetail._id,
-                image:productDetail.image,
-                price:productDetail.price,
-                // guarantee:productDetail.guarantee,
-                // warranty:productDetail.warranty,
-                    quantity:productDetail.quantity,
-                //  description: productDetail.description,
-                 email: user.email,
-                }
-                console.log(productDetails,'the data send in db')
-                fetch('http://localhost:5000/addToCart', {
-                    method: 'POST',
-                    headers: {
-                        'content-type':'application/json',
-                    },
-                    body:JSON.stringify(productDetails)
+    // const handleAddToCart = (_id: string) => {
+    //     fetch(`http://localhost:5000/wishlist/${_id}`)
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             setProductDetail(data)
+    //             const productDetails = {
+    //                 title:productDetail.title,
+    //                 // _id:productDetail._id,
+    //             image:productDetail.image,
+    //             price:productDetail.price,
+    //             // guarantee:productDetail.guarantee,
+    //             // warranty:productDetail.warranty,
+    //                 quantity:productDetail.quantity,
+    //             //  description: productDetail.description,
+    //              email: user.email,
+    //             }
+    //             console.log(productDetails,'the data send in db')
+    //             fetch('http://localhost:5000/addToCart', {
+    //                 method: 'POST',
+    //                 headers: {
+    //                     'content-type':'application/json',
+    //                 },
+    //                 body:JSON.stringify(productDetails)
                 
-                })
-                    .then(res => res.json())
-                    .then(data => {
-                        console.log(data,'add booking');
-                        if (data.acknowledged===true) {
-                            swal(
-                                'Successfully Added',
-                                "check your cart",
-                                "success"
-                              );
-                        }    
+    //             })
+    //                 .then(res => res.json())
+    //                 .then(data => {
+    //                     console.log(data,'add booking');
+    //                     if (data.acknowledged===true) {
+    //                         swal(
+    //                             'Successfully Added',
+    //                             "check your cart",
+    //                             "success"
+    //                           );
+    //                     }    
                      
                     
-                    })
-            })
-        .catch(error=>console.log(error,'when I try to add to card'))
-        console.log('click');
-    }
+    //                 })
+    //         })
+    //     .catch(error=>console.log(error,'when I try to add to card'))
+    //     console.log('click');
+    // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    const handleAddToCart = (_id: string) => {
+  // Fetch the product details from the wishlist using the _id
+  fetch(`http://localhost:5000/wishlist/${_id}`)
+    .then(res => res.json())
+    .then(data => {
+      // Create a new object with the required product details
+      const productDetails = {
+        title: data.title,
+        image: data.image,
+        price: data.price,
+        quantity: data.quantity,
+        email: user.email, // Assuming you have the user's email
+      }
+
+      // Send the object to the server to add it to the cart
+      fetch('http://localhost:5000/addToCart', {
+        method: 'POST',
+        headers: {
+          'content-type':'application/json',
+        },
+        body: JSON.stringify(productDetails),
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data,'add booking');
+        if (data.acknowledged===true) {
+          swal(
+            'Successfully Added',
+            "check your cart",
+            "success"
+          );
+        }
+      })
+    })
+    .catch(error => console.log(error,'when I try to add to card'))
+}
+
+
+    
     if (isLoading) {
         return <div className="h-full">
         <Spinner></Spinner>
