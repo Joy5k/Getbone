@@ -3,6 +3,7 @@ import { AuthContext } from "../../context/Authprovider";
 import { useContext } from "react";
 import Spinner from "../../components/Spinner";
 import { useQuery } from "@tanstack/react-query";
+import { ProductStatus } from "../../components/ProductStatus";
 
 type userProps = {
   url: string; 
@@ -105,7 +106,12 @@ const Booking = () => {
     return (
         <div className='lg:w-10/12 md:w-10/12 sm:w-full mx-auto mt-10 '>
         {
-          isLoading ? <><Spinner></Spinner></> :<><div className="overflow-x-auto relative shadow-md sm:rounded-lg ">
+          isLoading ? <><Spinner></Spinner></> : <>
+          
+          {
+            booked.length > 0 ?
+            <>
+            <div className="overflow-x-auto relative shadow-md sm:rounded-lg ">
           <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
               <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                   <tr>
@@ -135,6 +141,10 @@ const Booking = () => {
               </tbody>
           </table>
       </div></>
+            : <ProductStatus></ProductStatus>
+          }
+          </>
+         
 }
 
     </div>
