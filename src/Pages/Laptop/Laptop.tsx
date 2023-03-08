@@ -19,7 +19,7 @@ import { Link } from 'react-router-dom'
 const Laptop = () => {
     const [data,setData]=useState([])
     useEffect(() => {
-        fetch('http://localhost:5000/laptop?category=Laptop')
+        fetch('https://getbone-server-joy5k.vercel.app/laptop?category=Laptop')
             .then(res => res.json())
            .then(data => {
                setData(data)

@@ -6,6 +6,7 @@ import { AuthContext } from "../../context/Authprovider";
 import { type } from "os";
 import swal from "sweetalert";
 import Spinner from "../../components/Spinner";
+import { ProductStatus } from "../../components/ProductStatus";
 
 type userProps = {
     url: string; 
@@ -30,7 +31,7 @@ const Wishlist = () => {
     const { data: wishlistItems = [] ,refetch,isLoading} = useQuery({
         queryKey: ["wislist"],
         queryFn: async () => {
-          const res = await fetch(`http://localhost:5000/wishlist?email=${user?.email}`, {
+          const res = await fetch(`https://getbone-server-joy5k.vercel.app/wishlist?email=${user?.email}`, {
             headers: {
               authorization:`bearer ${localStorage.getItem('accessToken')}`
             }
@@ -42,7 +43,7 @@ const Wishlist = () => {
     })
     console.log(wishlistItems);
     const handleDelete = (_id: string) => {
-        fetch(`http://localhost:5000/wishlist/${_id}`,
+        fetch(`https://getbone-server-joy5k.vercel.app/wishlist/${_id}`,
      {
        method: 'DELETE',
        headers: {
@@ -63,52 +64,9 @@ const Wishlist = () => {
      })
     }
 
-    // const handleAddToCart = (_id: string) => {
-    //     fetch(`http://localhost:5000/wishlist/${_id}`)
-    //         .then(res => res.json())
-    //         .then(data => {
-    //             setProductDetail(data)
-    //             const productDetails = {
-    //                 title:productDetail.title,
-    //                 // _id:productDetail._id,
-    //             image:productDetail.image,
-    //             price:productDetail.price,
-    //             // guarantee:productDetail.guarantee,
-    //             // warranty:productDetail.warranty,
-    //                 quantity:productDetail.quantity,
-    //             //  description: productDetail.description,
-    //              email: user.email,
-    //             }
-    //             console.log(productDetails,'the data send in db')
-    //             fetch('http://localhost:5000/addToCart', {
-    //                 method: 'POST',
-    //                 headers: {
-    //                     'content-type':'application/json',
-    //                 },
-    //                 body:JSON.stringify(productDetails)
-                
-    //             })
-    //                 .then(res => res.json())
-    //                 .then(data => {
-    //                     console.log(data,'add booking');
-    //                     if (data.acknowledged===true) {
-    //                         swal(
-    //                             'Successfully Added',
-    //                             "check your cart",
-    //                             "success"
-    //                           );
-    //                     }    
-                     
-                    
-    //                 })
-    //         })
-    //     .catch(error=>console.log(error,'when I try to add to card'))
-    //     console.log('click');
-    // }
-
     const handleAddToCart = (_id: string) => {
   // Fetch the product details from the wishlist using the _id
-  fetch(`http://localhost:5000/wishlist/${_id}`)
+  fetch(`https://getbone-server-joy5k.vercel.app/wishlist/${_id}`)
     .then(res => res.json())
     .then(data => {
       // Create a new object with the required product details
@@ -121,7 +79,7 @@ const Wishlist = () => {
       }
 
       // Send the object to the server to add it to the cart
-      fetch('http://localhost:5000/addToCart', {
+      fetch('https://getbone-server-joy5k.vercel.app/addToCart', {
         method: 'POST',
         headers: {
           'content-type':'application/json',
@@ -137,7 +95,7 @@ const Wishlist = () => {
             "check your cart",
             "success"
             );
-            fetch(`http://localhost:5000/wishlist/${_id}`,
+            fetch(`https://getbone-server-joy5k.vercel.app/wishlist/${_id}`,
             {
               method: 'DELETE',
               headers: {
@@ -215,37 +173,39 @@ const Wishlist = () => {
     
     return (
         <div className='lg:w-10/12 md:w-10/12 sm:w-full mx-auto max-h-full '>
-          
-<div className="overflow-x-auto relative shadow-md sm:rounded-lg ">
-    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-                <th scope="col" className="py-3 px-6">
-                    <span className="sr-only">Image</span>
-                </th>
-                <th scope="col" className="py-3 px-6">
-                    Product
-                </th>
-                <th scope="col" className="py-3 px-6">
-                    Qty
-                </th>
-                <th scope="col" className="py-3 px-6">
-                    Price
-                </th>
-                <th scope="col" className="py-3 px-6">
-                    Delete
-                </th>
-                <th scope="col" className="py-3 px-6">
-                    Add to Cart
-                </th>
-            </tr>
-        </thead>
-                    <tbody>
-                    
-          {Items}
-        </tbody>
-    </table>
-</div>
+        {wishlistItems.length > 0 ? 
+       <div className="overflow-x-auto relative shadow-md sm:rounded-lg ">
+       <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+               <tr>
+                   <th scope="col" className="py-3 px-6">
+                       <span className="sr-only">Image</span>
+                   </th>
+                   <th scope="col" className="py-3 px-6">
+                       Product
+                   </th>
+                   <th scope="col" className="py-3 px-6">
+                       Qty
+                   </th>
+                   <th scope="col" className="py-3 px-6">
+                       Price
+                   </th>
+                   <th scope="col" className="py-3 px-6">
+                       Delete
+                   </th>
+                   <th scope="col" className="py-3 px-6">
+                       Add to Cart
+                   </th>
+               </tr>
+           </thead>
+                       <tbody>
+                
+             {Items}
+           </tbody>
+       </table>
+   </div>
+       : <ProductStatus></ProductStatus>}    
+
 
     </div>
   )

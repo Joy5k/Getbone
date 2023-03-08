@@ -27,7 +27,7 @@ const AllSellers = () => {
   const { data: users = [] ,isLoading,refetch} = useQuery({
       queryKey: ["users"],
       queryFn: async () => {
-        const res = await fetch(`http://localhost:5000/allusers/Seller`, {
+        const res = await fetch(`https://getbone-server-joy5k.vercel.app/allusers/Seller`, {
           headers: {
           authorization:`bearer ${localStorage.getItem('accessToken')}`
         }
@@ -37,7 +37,7 @@ const AllSellers = () => {
       },
   });
   const handleDelete = (_id: string) => {
-      fetch(`http://localhost:5000/allusers/${_id}`,
+      fetch(`https://getbone-server-joy5k.vercel.app/allusers/${_id}`,
    {
      method: 'DELETE',
      headers: {

@@ -49,7 +49,7 @@ const Details = () => {
     }
     console.log(detail,'this is data');
     useEffect(() => {
-        fetch(`http://localhost:5000/details/${data.id}`)
+        fetch(`https://getbone-server-joy5k.vercel.app/details/${data.id}`)
             .then(res => res.json())
             .then(data => {
                 setProduct(data)
@@ -58,7 +58,7 @@ const Details = () => {
             })
     }, [data.id])
     const handleAddData = () => {
-        fetch(`http://localhost:5000/addData/${data.id}`, {
+        fetch(`https://getbone-server-joy5k.vercel.app/addData/${data.id}`, {
             method: 'POST',
             headers: {
                 'content-type':'application/json',
@@ -81,7 +81,7 @@ const Details = () => {
     // add to wishlist
 
     const handleAddWishlist = () => {
-        fetch(`http://localhost:5000/addwishlist/${data._id}`, {
+        fetch(`https://getbone-server-joy5k.vercel.app/addwishlist/${data._id}`, {
             method: 'POST',
             headers: {
                 'content-type':'application/json',

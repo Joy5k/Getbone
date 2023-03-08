@@ -34,7 +34,7 @@ const Report = () => {
     }
     const handleReport = () => {
         console.log(reportedData,'reported data');
-        fetch(`http://localhost:5000/report`, {
+        fetch(`https://getbone-server-joy5k.vercel.app/report`, {
             method: 'POST',
             headers: {
                 'content-type':'application/json',

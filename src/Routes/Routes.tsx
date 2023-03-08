@@ -88,7 +88,7 @@ export const router = createBrowserRouter([
             {
                 path: "/details/:id",
                 element: <PrivateRoute><Details></Details></PrivateRoute>,
-                loader:({params})=>fetch(`http://localhost:5000/details/${params.id}`)
+                loader:({params})=>fetch(`https://getbone-server-joy5k.vercel.app/details/${params.id}`)
                 
             },
             {

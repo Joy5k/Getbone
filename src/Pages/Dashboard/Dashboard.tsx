@@ -26,7 +26,7 @@ const Dashboard = () => {
   const { data: booked = [] ,refetch,isLoading} = useQuery({
       queryKey: ["booked"],
       queryFn: async () => {
-        const res = await fetch(`http://localhost:5000/addData?email=${user?.email}`, {
+        const res = await fetch(`https://getbone-server-joy5k.vercel.app/addData?email=${user?.email}`, {
           headers: {
             authorization:`bearer ${localStorage.getItem('accessToken')}`
           }
@@ -37,7 +37,7 @@ const Dashboard = () => {
     });
 console.log(booked,'see the result')
     const handleRemove = (_id:string) => {
-      fetch(`http://localhost:5000/addData/${_id}`,
+      fetch(`https://getbone-server-joy5k.vercel.app/addData/${_id}`,
    {
      method: 'DELETE',
      headers: {
@@ -48,7 +48,7 @@ console.log(booked,'see the result')
    .then(data => {
      refetch()
    })
-      fetch(`http://localhost:5000/deleteData/${_id}`,
+      fetch(`https://getbone-server-joy5k.vercel.app/deleteData/${_id}`,
    {
      method: 'DELETE',
      headers: {

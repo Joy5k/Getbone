@@ -17,7 +17,7 @@ const ReportedProducts = () => {
     const { data: items = [] ,refetch,isLoading} = useQuery({
         queryKey: ["booked"],
         queryFn: async () => {
-          const res = await fetch(`http://localhost:5000/reported`, {
+          const res = await fetch(`https://getbone-server-joy5k.vercel.app/reported`, {
             headers: {
               authorization:`bearer ${localStorage.getItem('accessToken')}`
             }
@@ -27,7 +27,7 @@ const ReportedProducts = () => {
         },
     });
     const handleRemove = (_id:string) => {
-        fetch(`http://localhost:5000/reported/${_id}`,
+        fetch(`https://getbone-server-joy5k.vercel.app/reported/${_id}`,
      {
        method: 'DELETE',
        headers: {

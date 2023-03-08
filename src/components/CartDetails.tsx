@@ -27,7 +27,7 @@ const CartDetails = () => {
   // add to wishlist
 
   const handleAddWishlist = () => {
-      fetch(`http://localhost:5000/addwishlist/:${id}`, {
+      fetch(`https://getbone-server-joy5k.vercel.app/addwishlist/:${id}`, {
           method: 'POST',
           headers: {
               'content-type':'application/json',

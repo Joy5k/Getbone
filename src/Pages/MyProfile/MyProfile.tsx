@@ -40,7 +40,7 @@ const MyProfile = () => {
  
   const [userInfo,setUserInfo]=useState<null|userInfoType>(null)
   useEffect(() => {
-    fetch(`http://localhost:5000/user?email=${user?.email}`)
+    fetch(`https://getbone-server-joy5k.vercel.app/user?email=${user?.email}`)
       .then(response => response.json())
       .then(data => {
       
@@ -76,7 +76,7 @@ const MyProfile = () => {
     console.log('Error:', error);
   });
  
-  fetch(`http://localhost:5000/user/${id}`, {
+  fetch(`https://getbone-server-joy5k.vercel.app/user/${id}`, {
     method:'POST',
     headers: {
       'content-type':'application/json',

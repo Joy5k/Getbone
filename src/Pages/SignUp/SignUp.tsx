@@ -42,7 +42,7 @@ const SignUp = () => {
         .then((result) => {
           // Signed in 
           const user = result.user;
-          fetch('http://localhost:5000/user', {
+          fetch('https://getbone-server-joy5k.vercel.app/user', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

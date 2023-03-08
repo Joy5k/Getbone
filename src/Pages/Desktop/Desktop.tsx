@@ -26,7 +26,7 @@ const Desktop = () => {
     const[loader,setLoader]=useState(true)
     useEffect(() => {
         setLoader(true)
-        fetch('http://localhost:5000/desktop?category=Desktop')
+        fetch('https://getbone-server-joy5k.vercel.app/desktop?category=Desktop')
             .then(res => res.json())
            .then(data => {
                setData(data.slice(0, 6))

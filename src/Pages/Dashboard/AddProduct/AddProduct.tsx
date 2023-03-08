@@ -26,7 +26,7 @@ const AddProduct = () => {
     // setAddproduct({...addproduct,['publishDate']:time })
     setAddproduct({...addproduct,['email']:user.email })
     console.log(addproduct)
-    fetch('http://localhost:5000/addProduct', {
+    fetch('https://getbone-server-joy5k.vercel.app/addProduct', {
       method:'PUT',
       headers: {
       'content-type':'application/json'

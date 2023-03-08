@@ -23,7 +23,7 @@ const MyProducts = () => {
   const { data: wishlistItems = [] ,refetch,isLoading} = useQuery({
     queryKey: ["wislist"],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/myproducts?email=${user?.email}`, {
+      const res = await fetch(`https://getbone-server-joy5k.vercel.app/myproducts?email=${user?.email}`, {
         headers: {
           authorization:`bearer ${localStorage.getItem('accessToken')}`
         }
@@ -36,7 +36,7 @@ const MyProducts = () => {
     return <Spinner></Spinner>
   }
   const handleDelete = (_id: string) => {
-    fetch(`http://localhost:5000/wishlist/${_id}`,
+    fetch(`https://getbone-server-joy5k.vercel.app/wishlist/${_id}`,
  {
    method: 'DELETE',
    headers: {
@@ -58,12 +58,12 @@ const MyProducts = () => {
 }
 
 const handleAdvertisement = (_id: string) => {
-    fetch(`http://localhost:5000/wishlist/${_id}`)
+    fetch(`https://getbone-server-joy5k.vercel.app/wishlist/${_id}`)
         .then(res => res.json())
         .then(data => {
             setProductDetail(data)
             console.log(data.img)
-            fetch(`http://localhost:5000/addToCart`, {
+            fetch(`https://getbone-server-joy5k.vercel.app/addToCart`, {
                 method: 'POST',
                 headers: {
                     'content-type':'application/json',
