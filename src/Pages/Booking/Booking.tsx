@@ -104,7 +104,7 @@ const Booking = () => {
     </td>
 </tr>)
     return (
-        <div className='lg:w-10/12 md:w-10/12 sm:w-full mx-auto mt-10 '>
+        <div className='lg:w-10/12 md:w-10/12 sm:w-full min-h-screen mx-auto mt-10 '>
         {
           isLoading ? <><Spinner></Spinner></> : <>
           
