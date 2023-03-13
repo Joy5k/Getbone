@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useContext, useState, useEffect } from "react";
 import swal from "sweetalert";
+import Spinner from "../../../components/Spinner";
+import { ProductStatus } from "../../../components/ProductStatus";
 
 type productsProps = {
     image:string;
@@ -45,7 +46,10 @@ const ReportedProducts = () => {
                 } 
        refetch()
      })
-    }
+  }
+  if (isLoading) {
+    return <Spinner></Spinner>
+  }
 console.log(items)
 
     const products = items.map(({ image, title, _id, price,email,message,reportedItem }: productsProps)  => 
@@ -53,7 +57,7 @@ console.log(items)
                 
         <img  className="object-cover w-5/12  h-72 " src={image} alt=""/>
         <div className=" p-4 w-8/12 h-full relative ">
-                <h5 className="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white">{reportedItem.title}</h5>
+                <h5 className="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white">{title}</h5>
          <p className="mb-3 font-medium text-gray-700 dark:text-gray-400">Reporter Email: {email }</p>
                 <p className="mb-3 font-normal text-gray-700 dark:text-gray-400"><span className="font-bold">Objection:</span> {message?.slice(0,180)  }...</p>
               
@@ -65,11 +69,20 @@ console.log(items)
                    
     </div>
     )
-    return ( 
-      <div className="lg:w-10/12 md:w-10/12 sm:w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-3 ">
-     {products}
-     
+  return ( 
+    <>
+      {products.length>0 ? <div className="lg:w-10/12 md:w-10/12 sm:w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-3 ">
+    
+    {products}
+    
+      </div> :
+        <div className="w-full">
+          <ProductStatus></ProductStatus>
       </div>
+      }
+     
+      </>
+   
   )
 }
 

@@ -23,6 +23,7 @@ import Upcoming from "../Pages/Wishlist/Upcoming/Upcoming";
 import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
 import AllSellers from "../Pages/Dashboard/AllSellers/AllSellers";
 import ErrorPage from "../Pages/ErroPage/ErrorPage";
+import Payment from "../Pages/Dashboard/Payment/Payment";
 export const router = createBrowserRouter([
     {
         path: '/',
@@ -106,11 +107,11 @@ export const router = createBrowserRouter([
                 },
         
                     {
-                                path: '/dashboard/myprodcut',
+                                path:'/dashboard/myprodcut',
                                 element:<MyProducts></MyProducts>
                             },
                     {
-                                path: '/dashboard/reported',
+                                path:'/dashboard/reported',
                                 element:<ReportedProducts></ReportedProducts>
                             },
                              {
@@ -125,9 +126,10 @@ export const router = createBrowserRouter([
                                 path: '/dashboard/allsellers',
                                 element:<AllSellers></AllSellers>
                             },
+                             
                              {
-                                path: '/dashboard/reported',
-                                element:<AllSellers></AllSellers>
+                                path: '/dashboard/payment',
+                                element:<Payment></Payment>
                             },
                 ]
             }
