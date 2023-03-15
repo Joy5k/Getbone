@@ -82,7 +82,7 @@ export const router = createBrowserRouter([
             {
                 path: '/report/:id',
                 element: <PrivateRoute><Report></Report></PrivateRoute>,
-                loader:({params})=>fetch(`https://jsonplaceholder.typicode.com/photos/${params.id}`)
+                loader:({params})=>fetch(`https://getbone-server-joy5k.vercel.app/${params.id}`)
                 
             },
         
