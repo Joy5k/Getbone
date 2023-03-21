@@ -101,7 +101,7 @@ const Booking = () => {
         <button onClick={()=>handleRemove(_id)} className="font-medium btn bg-red-700  text-white p-2 rounded-md">Remove</button>
     </td>
     <td className="">
-          <Link to='/dashboard/payment'>
+          <Link to={`/dashboard/payment/${_id}`}>
           <button className="btn text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-md  p-2 text-sm">Buy Now</button>
           </Link>
     </td>
