@@ -130,13 +130,35 @@ const Home = () => {
       <Desktop></Desktop>
           <Laptop></Laptop>
           
-    <div  className='w-full h-96 relative md:w-10/12 lg:w-10/12 mx-auto '>
-      <section className="dark:bg-gray-800 dark:text-gray-100 absolute  mb-12">
-<img className='w-full absolute h-full rounded-lg' src="https://www.uob.com.sg/assets/web-resources/personal/images/save/everyday-accounts/one-account/one-account-banner-lemon-1440x700.jpg" alt=''/>
-</section>
+      <Phone></Phone>
+    <div  className='w-full h-auto relative md:w-10/12 lg:w-10/12 mx-auto '>
+    <h3 className='text-4xl italic font-bold my-4'>Most popular Products
+    </h3>
+<div className="grid gap-4">
+    <div>
+        <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/featured/image.jpg" alt=""/>
+    </div>
+    <div className="grid grid-cols-5 gap-4">
+        <div>
+            <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg" alt=""/>
+        </div>
+        <div>
+            <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg" alt=""/>
+        </div>
+        <div>
+            <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg" alt=""/>
+        </div>
+        <div>
+            <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg" alt=""/>
+        </div>
+        <div>
+            <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg" alt=""/>
+        </div>
+    </div>
+</div>
+
         
           </div>
-      <Phone></Phone>
       </div>
   )
 }
