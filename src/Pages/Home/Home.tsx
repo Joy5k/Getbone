@@ -8,6 +8,7 @@ import banner2 from '../../assets/banner-2.jpg';
 import banner3 from '../../assets/banner-3.jpg';
 import banner4 from '../../assets/banner-4.jpg';
 import banner5 from '../../assets/banner-5.jpg';
+import Navbar from '../shared/Navbar/Navbar'
 
 
 
@@ -26,24 +27,8 @@ type DataType = {
 }
     
 const Home = () => {
-    const [searchProduct,setSearchProduct] =useState({})
     const [data,setData]=useState([])
-    const handleSearch = (event: React.MouseEvent<HTMLFormElement>)=> { 
-        console.log(event, 'click the button to search');
-        fetch(`http://localhost:5000/search/Lian Li LANCOOL`)
-        .then(res => res.json())
-        .then(data => {
-            setData(data)
-            console.log(data,'the data');
-        })
-    }
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const fieldName = event.target.name;
-        setSearchProduct({ ...searchProduct, [fieldName]: event.target.value });
-        console.log(searchProduct, 'this is your search text');
-    
-    };
-    console.log(searchProduct,'the text search');
+ 
     const products = data.map(({ image, title, price, _id }: DataType) => <div data-aos="flip-left"
     data-aos-duration="800"   
         className="w-full max-w-sm bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 mx-auto">
@@ -70,10 +55,9 @@ const Home = () => {
 </div>)
   return (
     <div>
-      
-<div id="default-carousel" className="relative sm:w-full md:w-10/12 lg:w-10/12 mx-auto bg-slate-400" data-carousel="slide">
+<div id="default-carousel" className="relative sm:w-full md:w-10/12 lg:w-10/12 mx-auto bg-slate-400 -z-0" data-carousel="slide">
     {/* <!-- Carousel wrapper --> */}
-    <div className="relative h-56 overflow-hidden rounded-lg md:h-96">
+    <div className="relative h-56 overflow-hidden md:h-96">
          {/* <!-- Item 1 --> */}
         <div className="hidden duration-700 ease-in-out" data-carousel-item>
             <img src={banner1} className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..."/>
