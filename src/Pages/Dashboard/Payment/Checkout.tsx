@@ -22,10 +22,12 @@ const Checkout = () => {
             type: 'card',
             card,
         });
-        if (error) {
-            console.log(error);
-            // setCardError(error)
-        }
+        const result = await stripe.createToken(card);
+
+        if (result.error) {
+            console.log(result.error);
+            setCardError(result.error.message || 'There was an error processing your payment.');
+          }
     }
 
     return (
@@ -46,7 +48,8 @@ const Checkout = () => {
                             },
                         },
                     }}
-    />
+                />
+                <span className='text-red-600'>{cardError }</span>
     <button className='bg-blue-500 w-full p-4 hover:rounded-lg hover:bg-yellow-400' type="submit" disabled={!stripe}>
       Pay
     </button>
