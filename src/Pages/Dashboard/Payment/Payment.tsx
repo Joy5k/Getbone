@@ -1,6 +1,9 @@
 import { useLoaderData } from 'react-router-dom'
 import paymentImg from './payment.png'
 import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js'
+import Checkout from './Checkout';
+
 
 interface MyData {
   image: string;
@@ -13,7 +16,7 @@ function Payment() {
   const image = 'image' in data ? data.image : null;
 
   // Below the if else code is optional
-  
+
   // if (image !== null) {
   //   console.log(image,'got the image');
   // }
@@ -34,11 +37,11 @@ function Payment() {
       <img className='bg-transparent h-auto ' src={image} alt="image image" />
     )}
 </figure>
-          <p>
-          <input type="number" /></p> 
 </div>
         </div>
-
+   <Elements stripe={stripePromise}>
+      <Checkout />
+    </Elements>
     </div>
   )
 }
