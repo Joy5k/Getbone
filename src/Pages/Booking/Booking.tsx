@@ -20,8 +20,8 @@ type userProps = {
 
 const Booking = () => {
     const {user}=useContext(AuthContext)
-    const [quantity, setQuantity] = useState(1)
-    const [price, setPrice] = useState(500)
+    // const [quantity, setQuantity] = useState(1)
+    // const [price, setPrice] = useState(500)
     // const [loader, setLoader] = useState(false);
     const { data: booked = [] ,refetch,isLoading} = useQuery({
         queryKey: ["booked"],
@@ -34,7 +34,8 @@ const Booking = () => {
             const data = await res.json();
           return data;
         },
-      });
+    });
+  console.log('get all data in booking routes',booked);
   const { data: booke = [] } = useQuery({
         queryKey: ["booked"],
         queryFn: async () => {
@@ -95,7 +96,7 @@ const Booking = () => {
         </div>
     </td>
     <td className="py-4 px-6 font-semibold text-gray-900 dark:text-white">
-     <input type="number" className="border-none" value={price} disabled />
+     <input type="number" className="border-none" value={price*quantity} disabled />
     </td>
     <td className="py-4 px-6">
         <button onClick={()=>handleRemove(_id)} className="font-medium btn bg-red-700  text-white p-2 rounded-md">Remove</button>
