@@ -1,5 +1,4 @@
 import { useLoaderData } from 'react-router-dom'
-import paymentImg from './payment.png'
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js'
 import Checkout from './Checkout';
@@ -8,7 +7,11 @@ import Checkout from './Checkout';
 interface MyData {
   image: string;
   price: string;
-  title:string  // other properties
+  data: string;
+  title: string;  // other properties
+}
+interface Props {
+  data: MyData;
 }
 const stripePromise = loadStripe('pk_test_51M65lJBEpUuPl12HhfqXisUr9QyauC9XbQehSaXuRYaGV3KPqMmuxvJ4xUYEjw1BebhCxC0F32j4rTHHCKRZcYX500PAGEmnfF');
 
@@ -23,7 +26,7 @@ function Payment() {
   // if (image !== null) {
   //   console.log(image,'got the image');
   // }
-console.log(data,'payment product');
+  
   return (
       <div  className='sm:w-full md:w-10/12 lg:w-10/12 mx-auto text-center'>
           <h3 className='text-4xl text-center font-bold sm:w-full md:w-10/12 lg:w-10/12 mx-auto '>Payment for your product</h3>
@@ -44,8 +47,8 @@ console.log(data,'payment product');
           </figure>
 </div>
         </div>
-   <Elements stripe={stripePromise}>
-      <Checkout />
+      <Elements stripe={stripePromise} >
+        <Checkout data={data} />
     </Elements>
     </div>
   )
