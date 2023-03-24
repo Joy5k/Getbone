@@ -31,7 +31,7 @@ const Checkout = () => {
     }
 
     return (
-        <div className='w-96 mx-auto my-4 mb-12 bg-white p-4'>
+      <div className='w-96 mx-auto my-4 mb-12 bg-white p-4'>
               <form onSubmit={handleSubmit}>
     <CardElement
       options={{
@@ -48,9 +48,12 @@ const Checkout = () => {
                             },
                         },
                     }}
-                />
-                <span className='text-red-600'>{cardError }</span>
-    <button className='bg-blue-500 w-full p-4 hover:rounded-lg hover:bg-yellow-400' type="submit" disabled={!stripe}>
+          />
+         
+          <span className='text-red-600'>{cardError}</span>
+          
+          <button className='bg-blue-500 w-full p-4 hover:rounded-lg
+     hover:bg-yellow-400 mt-6' type="submit" disabled={!stripe}>
       Pay
     </button>
         </form>
