@@ -6,7 +6,8 @@ import Checkout from './Checkout';
 
 interface MyData {
   image: string;
-  price: string;
+  price: number;
+  quantity: number;
   data: string;
   title: string;  // other properties
 }
@@ -18,7 +19,8 @@ const stripePromise = loadStripe('pk_test_51M65lJBEpUuPl12HhfqXisUr9QyauC9XbQehS
 function Payment() {
   const data = useLoaderData() as MyData;
   const image = 'image' in data ? data.image : null;
-  const price = 'image' in data ? data.price : null;
+  const price = 'image' in data ? data.price : 0;
+  const quantity = 'image' in data ? data.quantity : 0;
   const title = 'image' in data ? data.title : null;
 
   // Below the if else code is optional
@@ -42,8 +44,9 @@ function Payment() {
 {image !== null && (
       <img className='bg-transparent h-auto ' src={image} alt="image image" />
     )}
-          <p className='text-xl'><span className=' font-bold text-left '>Price:</span>{price}</p>
-          <p className='text-xl'><span className=' font-bold text-left '>Brand: </span>{title}</p>
+          <p className='text-xl'><span className=' font-bold  text-left '>Brand: </span>{title}</p>
+          <p className='text-xl'><span className=' font-bold text-left '>Quantity:</span>{quantity}</p>
+          <p className='text-xl'><span className=' font-bold text-left '>Total Price:</span>{price*quantity}</p>
           </figure>
 </div>
         </div>
