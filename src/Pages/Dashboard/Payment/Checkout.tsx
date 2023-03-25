@@ -21,10 +21,10 @@ const Checkout = ({ data }: myData) => {
   
     useEffect(() => {
       // Create PaymentIntent as soon as the page loads
-      fetch("http://localhost:5000/create-payment-intent", {
+      fetch("https://getbone-server-joy5k.vercel.app/create-payment-intent", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({price}),
+        body: JSON.stringify({price}), 
       })
         .then((res) => res.json())
         .then((data) => setClientSecret(data.clientSecret));

@@ -49,7 +49,7 @@ function Payment() {
           <p className='text-xl'><span className=' font-bold text-left '>Total Price:</span>{price*quantity}</p>
           </figure>
 </div>
-        </div>
+       </div>
       <Elements stripe={stripePromise} >
         <Checkout data={data} />
     </Elements>

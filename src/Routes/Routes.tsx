@@ -129,7 +129,7 @@ export const router = createBrowserRouter([
                              
                              {
                                  path: '/dashboard/payment/:id',
-                                 loader:({params})=>fetch(`http://localhost:5000/payment/${params.id}`),
+                                 loader:({params})=>fetch(`https://getbone-server-joy5k.vercel.app/payment/${params.id}`),
                                 element:<Payment></Payment>
                             },
                 ]
