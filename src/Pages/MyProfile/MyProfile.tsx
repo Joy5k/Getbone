@@ -1,10 +1,11 @@
 import { type } from 'os';
 import React, {useState,useContext,useEffect }  from 'react'
-import { FaCloudUploadAlt, FaEdit, FaMapMarkerAlt, FaRegGem } from 'react-icons/fa'
-import ImageUploading, { ImageType } from "react-images-uploading";
+import {  FaMapMarkerAlt, FaRegGem } from 'react-icons/fa'
 import { AuthContext } from '../../context/Authprovider';
 import swal from 'sweetalert';
 import axios from 'axios';
+import { CgProfile } from 'react-icons/cg';
+
 
 
 type NewUserProps = {
@@ -19,14 +20,16 @@ type userInfoType = {
 country:string;
  email:string;
 firstName:string;
-lastName: string;
-name: string;
+  lastName: string;
+imageUrl:string;
+name: any;
 password: string;
 phoneNumber: string;
 role: string;
 state: string;
 street: string;
-_id:string;
+  _id: string;
+
 }
 // img hosting key = 9f37c59aee0d043b16ae697f3841385d
 const MyProfile = () => {
@@ -39,6 +42,7 @@ const MyProfile = () => {
   const [lastName, setLastName] = useState('');
   const [id, setId] = useState('');
   
+console.log(id);
   const [file, setFile] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
  
@@ -62,66 +66,30 @@ const MyProfile = () => {
 
   };
 
-
-  async function uploadImage(file: File): Promise<string> {
-    const formData = new FormData();
-    formData.append('image', file);
-  
-    const response = await axios.post('https://api.imgbb.com/1/upload?key=YOUR_API_KEY', formData);
-    return response.data.data.url;
-  }
-  
-  
-
-
   const handleUpdatedProfile = (event: React.MouseEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = images[0];
-      const image = data['file']
-    console.log(image, 'got the img');
-    const formData = new FormData();
-    formData.append('image', image);
-    fetch('https://api.imgbb.com/1/upload?key=71901a2f0c4b89a9fd3ecca12b72d964', {
-  method: 'POST',
-  body: formData
-})
-  .then((response) => response.json())
-  .then((result) => {
-    console.log('Success:', result);
-  })
-  .catch((error) => {
-    console.log('Error:', error);
-  });
- 
   fetch(`https://getbone-server-joy5k.vercel.app/user/${id}`, {
     method:'POST',
     headers: {
       'content-type':'application/json',
     },
     body: JSON.stringify(userData)
-    
   })
     .then(res => res.json())
     .then(data => {
-      console.log(data)
       if (data.acknowledged===true) {
         swal(
-            'Updated Your Profile',
-            "check your My product route",
+            'Successful',
+            "Updated Your Profile",
             "success"
           );
     }   
     
     })
   
+
+    
   }
-
-
-  const onChange = (
-    imageList: ImageType,
-  ) => {
-    setImages(imageList as []);
-  };
   
   async function handleUpload() {
     if (file) {
@@ -129,7 +97,10 @@ const MyProfile = () => {
       formData.append('image', file);
 
       const response = await axios.post('https://api.imgbb.com/1/upload?key=71901a2f0c4b89a9fd3ecca12b72d964', formData);
+      setUser({ ...userData, ['imageUrl']:response.data.data.url});
       setImageUrl(response.data.data.url);
+      console.log(userData, 'check the image link here');
+      console.log(imageUrl,'image url',response.data.data.url);
     }
   }
 
@@ -141,10 +112,17 @@ const MyProfile = () => {
   }
   return (
     <div className='sm:flex-col  md:flex-row lg:flex user profile  lg:w-10/12 md:w-10/12 sm:w-full mx-auto'>
-      <div className='w-full lg:w-4/12 border h-full p-4 overflow-hidden  border-gray-200 shadow-gray-300 shadow-2xl rounded-md lg:mr-5'>
-      {imageUrl && <img className='w-40 h-40 rounded-full' src={imageUrl} alt="Uploaded Image" />}
 
-        <p className=' text-lg font-bold mt-5 mb-3 '>{userInfo?.firstName} {userInfo?.lastName }</p>
+      
+      <div className='w-full lg:w-4/12 border h-full p-4 overflow-hidden  border-gray-200 shadow-gray-300 shadow-2xl rounded-md lg:mr-5'>
+      {imageUrl ? <img className='w-40 h-40 rounded-full' src={imageUrl} alt="Uploaded Image" />:  <CgProfile className='w-20 h-20 rounded-full' size={24} />
+}
+
+        <p className=' text-lg font-bold mt-5 mb-3 '>{
+          userInfo?.firstName||lastName ? <p>{userInfo?.firstName}</p> :
+            <p>
+             { userInfo?.name}</p>}
+           </p>
     <span className='flex justify-items-start  align-middle items-center '><FaRegGem className='mt-1 text-blue-500 mr-2'></FaRegGem>Premium user</span>
         <span className='flex  justify-items-start align-middle items-center '><FaMapMarkerAlt className='mt-1 text-gray-700 mr-2'></FaMapMarkerAlt>
         {userInfo?.street},{userInfo?.city}
@@ -173,46 +151,11 @@ const MyProfile = () => {
         <form onSubmit={handleUpdatedProfile}>
           <div className="my-4 mb-8">
             <p className='text-md font-semibold'>Upload Image</p>
-            <ImageUploading
-        multiple
-        value={images}
-        onChange={onChange}
-      >
-        {({
-          imageList,
-          onImageUpload,
-          onImageUpdate,
-        }) => (
-                <div className="btn p-2 ">   
-                  {
-                    images.length <= 0 &&    <button
-                      onClick={onImageUpload}
-                      className="border border-gray-300 p-4 border-dashed"
-                    >
-                    
-                    <FaCloudUploadAlt className='w-20 h-20'></FaCloudUploadAlt>
-                  </button>
-          }
-            {imageList.map((image, index) => (
-              <>
-               <div key={index} className="image-item">
-                <img className='rounded-sm' src={image.dataURL} alt="" width="200" />
-                <div className="btn bg-gray-200 w-24 my-1 p-1 hover:bg-slate-400 rounded-sm">
-                 
-                  <button  className='flex align-middle items-center justify-center ' onClick={() => onImageUpdate(index)}>Change <FaEdit className='ml-1'></FaEdit>
-                  </button>
-                 
-                </div>
-              </div></>
-            ))}
+    
+            <input  type="file" onChange={handleFileChange} className='text-transparent  ' />
           </div>
-        )}
-      </ImageUploading>
-          </div>
-
-
+            <button onClick={handleUpload} className='border border-gray-300 my-4 bg-gray-200'>Upload</button>
              <div>
-      <input type="file" onChange={handleFileChange} />
     </div>
        <div className="grid md:grid-cols-2 md:gap-6">
        <div className="relative z-0 mb-6 w-full group">
@@ -261,7 +204,7 @@ const MyProfile = () => {
     </div>
   
   </div>
-  <button onClick={handleUpload} type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
+  <button  type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
 </form>
 
       </div>

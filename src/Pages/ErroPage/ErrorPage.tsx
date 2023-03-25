@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 const ErrorPage = () => {
   return (
       <div>
-    <section className="bg-blue-700 relative z-10 py-[120px]">
+    <section className="bg-blue-700 relative z-10 py-[120px] h-screen">
       <div className="container mx-auto">
         <div className="-mx-4 flex">
           <div className="w-full px-4">
