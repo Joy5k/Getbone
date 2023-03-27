@@ -72,7 +72,19 @@ const Checkout = ({ data }: myData) => {
       }
       if (paymentIntent.status==="succeeded") {
         // alert('Yay')
-        swal('YAY!','Your Payment was successfully completed','success')
+        swal('YAY!', 'Your Payment was successfully completed', 'success')
+        fetch('http://localhost:5000/payment', {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        }
+        )
+          .then(res => res.json())
+          .then(data => {
+            console.log(data,'this is the payment details');
+          })
       }
     }
 
