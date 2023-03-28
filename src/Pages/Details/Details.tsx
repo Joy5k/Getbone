@@ -68,7 +68,7 @@ const Details = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+                console.log(data,'add to booking');
                 if (data.acknowledged===true) {
                     swal(
                         'Successfully Added',
@@ -90,7 +90,7 @@ const Details = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+                console.log(data,'add to wishlist');
                 if (data.acknowledged===true) {
                     swal(
                         'Successfully Added',
