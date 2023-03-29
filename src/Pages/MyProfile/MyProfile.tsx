@@ -84,7 +84,7 @@ console.log(id);
     }   
     }) 
   }
-  
+  console.log(user.photoURL,'check the user image from google');
   async function handleUpload() {
     if (file) {
       const formData = new FormData();
@@ -110,8 +110,14 @@ console.log(id);
   return (
     <div className='sm:flex-col  md:flex-row lg:flex user profile  lg:w-10/12 md:w-10/12 sm:w-full mx-auto'>  
       <div className='w-full lg:w-4/12 border h-full p-4 overflow-hidden  border-gray-200 shadow-gray-300 shadow-2xl rounded-md lg:mr-5'>
-      {imageUrl ? <img className='w-40 h-40 rounded-full' src={imageUrl} alt="Uploaded Image" />:  <CgProfile className='w-20 h-20 rounded-full' size={24} />
-}
+        {
+          !imageUrl && !user.photoURL ? <CgProfile className='w-20 h-20 rounded-full' size={24} /> :
+            <>
+              {imageUrl ? <img className='w-40 h-40 rounded-full' src={imageUrl} alt="Uploaded Image" />: <img className='w-40 h-40 rounded-full' src={user.photoURL} alt="Uploaded Image" /> 
+        }
+            </>
+        }
+    
 
         <p className=' text-lg font-bold mt-5 mb-3 '>{
           userInfo?.firstName||lastName ? <p>{userInfo?.firstName}</p> :
