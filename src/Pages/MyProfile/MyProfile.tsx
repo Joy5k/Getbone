@@ -32,81 +32,86 @@ street: string;
 }
 // img hosting key = 9f37c59aee0d043b16ae697f3841385d
 const MyProfile = () => {
-  const {user}=useContext(AuthContext)
-  const [userData, setUser] = useState<NewUserProps>({});
-  const [images, setImages] =React.useState([]);
-  const [email, setEmail] = useState('')
-  const [role, setRole] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [id, setId] = useState('');
-  const [upload,setUpload] = useState(false);
-console.log(id);
+  const { user } = useContext(AuthContext);
+  const [userData, setUserData] = useState<NewUserProps>({});
+  const [images, setImages] = useState<string[]>([]);
+  const [email, setEmail] = useState<string>('');
+  const [role, setRole] = useState<string>('');
+  const [firstName, setFirstName] = useState<string>('');
+  const [lastName, setLastName] = useState<string>('');
+  const [id, setId] = useState<string>('');
+  const [upload, setUpload] = useState<boolean>(false);
+  console.log(id);
   const [file, setFile] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
- 
-  const [userInfo,setUserInfo]=useState<null|userInfoType>(null)
+  
+  const [userInfo, setUserInfo] = useState<userInfoType | null>(null);
+  
   useEffect(() => {
     fetch(`https://getbone-server-joy5k.vercel.app/user?email=${user?.email}`)
-      .then(response => response.json())
-      .then(data => {      
-        setEmail(data.email)
-        setRole(data.role)
-        setId(data._id)
-        setUserInfo(data)
-        setUser({...userData})
-      })
-  }, [user?.email])
+      .then((response) => response.json())
+      .then((data) => {
+        setEmail(data.email);
+        setRole(data.role);
+        setId(data._id);
+        setUserInfo(data);
+        setUserData({ ...data });
+      });
+  }, [user?.email]);
   
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+   
+  async function handleChange (event: React.ChangeEvent<HTMLInputElement>) {
     const fieldName = event.target.name;
-    setUser({ ...userData, [fieldName]: event.target.value });
-
+    setUserData({ ...userData, [fieldName]: event.target.value });
+    setUserData({ ...userData, imageUrl: imageUrl });
   };
-
-  const handleUpdatedProfile = (event: React.MouseEvent<HTMLFormElement>) => {
+  
+  
+  async function handleUpdatedProfile  (event: React.MouseEvent<HTMLFormElement>){
     event.preventDefault();
-  fetch(`https://getbone-server-joy5k.vercel.app/user/${id}`, {
-    method:'POST',
-    headers: {
-      'content-type':'application/json',
-    },
-    body: JSON.stringify(userData)
-  })
-    .then(res => res.json())
-    .then(data => {
-      if (data.acknowledged===true) {
-        swal(
-            'Successful',
-            "Updated Your Profile",
-            "success"
-          );
-    }   
-    }) 
-  }
-  console.log(user.photoURL,'check the user image from google');
+  
+    fetch(`http://localhost:5000/user/${id}`, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({ ...userData, imageUrl }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged === true) {
+          swal('Successful', 'Updated Your Profile', 'success');
+        }
+      });
+  };
+  
   async function handleUpload() {
     if (file) {
       const formData = new FormData();
       formData.append('image', file);
-      const response = await axios.post('https://api.imgbb.com/1/upload?key=71901a2f0c4b89a9fd3ecca12b72d964', formData);  
+      const response = await axios.post(
+        'https://api.imgbb.com/1/upload?key=71901a2f0c4b89a9fd3ecca12b72d964',
+        formData
+      );
       setImageUrl(response.data.data.url);
-      setUpload(true)
-      setUser({ ...userData, imageUrl: imageUrl })
-      console.log(userData, 'this is user data');
-    
-    }
-    if (imageUrl) {
-      
+      setUpload(true);
+      setUserData({ ...userData, imageUrl: imageUrl });
+      console.log(response.data.data.url);
+      if (response.data.data.url !==null) {
+        setUserData({ ...userData, imageUrl: response.data.data.url });
+    console.log(userData);
+      }
     }
   }
-
+  
   function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0];
     if (file) {
       setFile(file);
+      handleUpload(); // call handleUpload after setting the file state
     }
   }
+  
   return (
     <div className='sm:flex-col  md:flex-row lg:flex user profile  lg:w-10/12 md:w-10/12 sm:w-full mx-auto'>  
       <div className='w-full lg:w-4/12 border h-full p-4 overflow-hidden  border-gray-200 shadow-gray-300 shadow-2xl rounded-md lg:mr-5'>
@@ -154,6 +159,8 @@ console.log(id);
             <p className='text-md font-semibold'>Upload Image</p>
     
             <input  type="file" onBlur={handleFileChange} className='text-transparent  ' />
+            {/* <input type="text" name="imageUrl" value={imageUrl} onChange={handleImageUrlChange} /> */}
+
           </div>
             <button onClick={handleUpload} className='border border-gray-300 my-4 bg-gray-200'>Upload</button>
              <div>
