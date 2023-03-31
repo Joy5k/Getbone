@@ -8,12 +8,10 @@ import { CgProfile } from 'react-icons/cg';
 
 
 type NewUserProps = {
-  // firstName: string;
-  // email: string;
-  // phoneNumber: any;
-  // lastName: string;
-
+  imageUrl: string | null;
+  // ...
 };
+
 type userInfoType = {
   city:string;
 country:string;
@@ -33,8 +31,10 @@ street: string;
 // img hosting key = 9f37c59aee0d043b16ae697f3841385d
 const MyProfile = () => {
   const { user } = useContext(AuthContext);
-  const [userData, setUserData] = useState<NewUserProps>({});
-  const [images, setImages] = useState<string[]>([]);
+  const [userData, setUserData] = useState<NewUserProps>({
+    imageUrl: '',
+    // ...
+  });  const [images, setImages] = useState<string[]>([]);
   const [email, setEmail] = useState<string>('');
   const [role, setRole] = useState<string>('');
   const [firstName, setFirstName] = useState<string>('');
@@ -44,7 +44,7 @@ const MyProfile = () => {
   console.log(id);
   const [file, setFile] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
-  
+  const imageLink=userData?.imageUrl
   const [userInfo, setUserInfo] = useState<userInfoType | null>(null);
   
   useEffect(() => {
@@ -59,7 +59,6 @@ const MyProfile = () => {
       });
   }, [user?.email]);
   
-   
   async function handleChange (event: React.ChangeEvent<HTMLInputElement>) {
     const fieldName = event.target.name;
     setUserData({ ...userData, [fieldName]: event.target.value });
@@ -96,11 +95,10 @@ const MyProfile = () => {
       setImageUrl(response.data.data.url);
       setUpload(true);
       setUserData({ ...userData, imageUrl: imageUrl });
-      console.log(response.data.data.url);
       if (response.data.data.url !==null) {
         setUserData({ ...userData, imageUrl: response.data.data.url });
-    console.log(userData);
       }
+      handleUpload();
     }
   }
   
@@ -108,17 +106,16 @@ const MyProfile = () => {
     const file = event.target.files?.[0];
     if (file) {
       setFile(file);
-      handleUpload(); // call handleUpload after setting the file state
     }
+    handleUpload(); // call handleUpload after setting the file state
   }
-  
   return (
     <div className='sm:flex-col  md:flex-row lg:flex user profile  lg:w-10/12 md:w-10/12 sm:w-full mx-auto'>  
       <div className='w-full lg:w-4/12 border h-full p-4 overflow-hidden  border-gray-200 shadow-gray-300 shadow-2xl rounded-md lg:mr-5'>
         {
-          !imageUrl && !user.photoURL ? <CgProfile className='w-20 h-20 rounded-full' size={24} /> :
+          !userData?.imageUrl && !user.photoURL ? <CgProfile className='w-20 h-20 rounded-full' size={24} /> :
             <>
-              {imageUrl ? <img className='w-40 h-40 rounded-full' src={imageUrl} alt="Uploaded Image" />: <img className='w-40 h-40 rounded-full' src={user.photoURL} alt="Uploaded Image" /> 
+              {userData?.imageUrl ? <img className='w-40 h-40 rounded-full' src={userData?.imageUrl} alt="Uploaded Image" />: <img className='w-40 h-40 rounded-full' src={user.photoURL} alt="Uploaded Image" /> 
         }
             </>
         }
@@ -158,7 +155,7 @@ const MyProfile = () => {
           <div className="my-4 mb-8">
             <p className='text-md font-semibold'>Upload Image</p>
     
-            <input  type="file" onBlur={handleFileChange} className='text-transparent  ' />
+            <input  type="file" onChange={handleFileChange} className='text-transparent  ' />
             {/* <input type="text" name="imageUrl" value={imageUrl} onChange={handleImageUrlChange} /> */}
 
           </div>
