@@ -35,7 +35,8 @@ const Details = () => {
     guarantee:detail.guarantee,
     warranty:detail.warranty,
         quantity:quantity,
-    description:detail.description,
+        description: detail.description,
+    productId:detail._id
     }
     const wishListProductDetails = {
         email: user.email,

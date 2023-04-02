@@ -105,7 +105,7 @@ const Booking = () => {
     <td className="">
        
           {
-            paid ? <p className="text-md font-bold">Paid</p> :
+            paid ? <Link to='/' className="text-md font-bold">Paid</Link> :
             <Link to={`/dashboard/payment/${_id}`}>
             <button className="btn text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-md  p-2 text-sm">Buy Now</button>
             </Link>

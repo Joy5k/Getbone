@@ -24,6 +24,7 @@ import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
 import AllSellers from "../Pages/Dashboard/AllSellers/AllSellers";
 import ErrorPage from "../Pages/ErroPage/ErrorPage";
 import Payment from "../Pages/Dashboard/Payment/Payment";
+import Review from "../Pages/Review/Review";
 export const router = createBrowserRouter([
     {
         path: '/',
@@ -91,6 +92,11 @@ export const router = createBrowserRouter([
                 element: <PrivateRoute><Details></Details></PrivateRoute>,
                 loader:({params})=>fetch(`https://getbone-server-joy5k.vercel.app/details/${params.id}`)
                 
+            },
+            {
+                path: "/review/:id",
+                element: <PrivateRoute><Review></Review></PrivateRoute>,
+                loader: ({params})=>fetch(`localhost:50000/review/${params}`)
             },
             {
                 path: '/dashboard',
