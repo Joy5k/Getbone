@@ -1,5 +1,5 @@
 import { CardElement,useElements,useStripe } from '@stripe/react-stripe-js'
-import React, { useState, FormEvent, useEffect } from 'react'
+import { useState, FormEvent, useEffect } from 'react'
 import { useContext } from 'react';
 
 import { AuthContext } from '../../../context/Authprovider';
@@ -10,9 +10,9 @@ type myData = {
 const Checkout = ({ data }: myData) => {
   const { user } = useContext(AuthContext);
   const name ='name'in user ? user.displayName :null
-  const image = 'image' in data ? data.image : null;
-  console.log(user,'the persone name is',name);
-
+  // const image = 'image' in data ? data.image : null;
+  const [success, setSuccess] = useState('')
+  const [transactionId,setTransactionId]=useState('')
   const { price,email  } = data;
     const stripe = useStripe();
     const elements = useElements();
@@ -48,7 +48,7 @@ const Checkout = ({ data }: myData) => {
         const result = await stripe.createToken(card);
 
         if (result.error) {
-            console.log(result.error);
+            console.log(result.error.message);
             setCardError(result.error.message || 'There was an error processing your payment.');
       }
       const {paymentIntent, error:confirmError} = await stripe.confirmCardPayment(
@@ -68,22 +68,32 @@ const Checkout = ({ data }: myData) => {
         return
       }
       else {
-        console.log(paymentIntent,'Yes you did it');
+        // console.log(paymentIntent,'Yes you did it');
       }
       if (paymentIntent.status==="succeeded") {
-        // alert('Yay')
         swal('YAY!', 'Your Payment was successfully completed', 'success')
+        const payment = {
+          price,
+          transactionId: paymentIntent.id,
+          email,
+          bookingId: data._id,
+          
+        }
         fetch('http://localhost:5000/payment', {
           method: 'POST',
           headers: {
             'content-type': 'application/json'
           },
-          body: JSON.stringify(data)
+          body: JSON.stringify(payment)
         }
         )
           .then(res => res.json())
           .then(data => {
-            console.log(data,'this is the payment details');
+            console.log(data, 'this is the payment details');
+            if (data.insertedId) {
+              setSuccess('congrats! your payment completed')
+              setTransactionId(paymentIntent.id)
+            }
           })
       }
     }
@@ -108,12 +118,13 @@ const Checkout = ({ data }: myData) => {
                     }}
           />
          
-          <span className='text-red-600'>{cardError}</span>
-          
           <button className='bg-blue-500 w-full p-4 hover:rounded-lg
      hover:bg-yellow-400 mt-6' type="submit" disabled={!stripe}>
       Pay
-    </button>
+          </button>
+            <span className='text-green-500'>{success }</span>
+            <span className='text-green-500'>Your Transaction ID: {transactionId }</span>    
+       <span className='text-red-600'>{cardError}</span>  
         </form>
       </div>
     )
