@@ -115,7 +115,7 @@ const Details = () => {
         setTaka(totalPrice)
     }
     const details = product.map(({_id,title, image,price,guarantee,warranty,description}: data) => {
-        return     <div>
+        return   <div>
              <div className="grid lg:grid-cols-2 sm:grid-cols-1 my-5">
          <img
             className="w-96 h-96 mx-auto"

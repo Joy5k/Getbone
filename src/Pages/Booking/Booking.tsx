@@ -16,7 +16,8 @@ type userProps = {
   warranty: any,
   quantity: number,
   description: any;
-  paid:boolean,
+  paid: boolean,
+  productId:string,
 }
 
 const Booking = () => {
@@ -76,9 +77,9 @@ const Booking = () => {
     }
     if (isLoading) {
         <Spinner></Spinner>
-    }
+  }
   const Items=  
-      booked.map(({ _id,title, image,price,paid,warranty,description,quantity}: userProps) => <tr
+ booked.map(({ _id,title, image,price,paid,productId,description,quantity}: userProps) => <tr
         key={_id}  
         className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
     <td className="p-4 w-32">
@@ -105,7 +106,10 @@ const Booking = () => {
     <td className="">
        
           {
-            paid ? <Link to='/' className="text-md font-bold">Paid</Link> :
+            paid ? <>
+              <Link to='/' className="text-md font-bold">Paid</Link>
+              <Link to={`/review/${productId}`}>How was the Product?</Link>
+            </> :
             <Link to={`/dashboard/payment/${_id}`}>
             <button className="btn text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-md  p-2 text-sm">Buy Now</button>
             </Link>
