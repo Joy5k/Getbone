@@ -1,4 +1,4 @@
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/Authprovider';
 import React, { useState, useContext ,useEffect} from 'react'
 
@@ -29,6 +29,7 @@ type NewUserProps = {
 
 };
 const Review = () => {
+  const navigate=useNavigate()
   const { user } = useContext(AuthContext);
   const [userInfo,setUserInfo]=useState({})
   const product = useLoaderData() as productProps;
@@ -61,7 +62,10 @@ const Review = () => {
     })
       .then(response => response.json())
       .then(data => {
-        console.log(data,'success');
+        console.log(data, 'success');
+        if (data.acknowledged) {
+          navigate('/')
+        }
       })
   }
   const details = (

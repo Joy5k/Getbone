@@ -42,7 +42,7 @@ function Payment() {
     
 <figure className="relative max-w-sm transition-all duration-300 cursor-pointer filter grayscale hover:grayscale-0">
 {image !== null && (
-      <img className='bg-transparent h-auto ' src={image} alt="image image" />
+      <img className='bg-transparent h-auto ' src={image} alt="" />
     )}
           <p className='text-xl'><span className=' font-bold  text-left '>Brand: </span>{title}</p>
           <p className='text-xl'><span className=' font-bold text-left '>Quantity:</span>{quantity}</p>
