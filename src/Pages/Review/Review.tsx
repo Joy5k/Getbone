@@ -1,6 +1,6 @@
 import { useLoaderData } from 'react-router-dom';
 import { AuthContext } from '../../context/Authprovider';
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext ,useEffect} from 'react'
 
 type productProps = {
   url: string; 
@@ -32,17 +32,38 @@ const Review = () => {
   const { user } = useContext(AuthContext);
   const [userInfo,setUserInfo]=useState({})
   const product = useLoaderData() as productProps;
-  const [reportedData, setReportedData] = useState<NewUserProps>({})
-  console.log(product);
+  const [CustomerComment, setCustomerComment] = useState<NewUserProps>({})
+  console.log(product,'product');
   const handleComment = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     console.log(event, 'The comment has been');
     const fieldName = event.target.name;
-    setUserInfo({ ...userInfo, [fieldName]: event.target.value, email: user?.email });
-    const Data = { [fieldName]: event.target.value, email: user?.email,userImage:user?.image,userName:user?.name }
+    // setUserInfo({ ...userInfo, [fieldName]: event.target.value, email: user?.email });
+    const Data = { [fieldName]: event.target.value,userInfo:userInfo }
     const newData = { ...Data }
-    setReportedData(newData)
+    setCustomerComment(newData)
   }
-  console.log(reportedData);
+  useEffect(() => {
+    fetch(`http://localhost:5000/email/${user.email}`)
+      .then(response => response.json())
+      .then(data => {
+        setUserInfo(data)
+      })
+  },[user.email])
+  console.log(CustomerComment, 'new data');
+  const handleSubmitReview = () => {
+    console.log('clicked');
+    fetch(`http://localhost:5000/review/${product._id}`, {
+      method: 'POST',
+      headers: {
+        'content-type':'application/json'
+      },
+      body: JSON.stringify(CustomerComment)
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data,'success');
+      })
+  }
   const details = (
     <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 h-auto w-full items-center bg-white border border-gray-200 rounded-lg shadow   ">
       <img className=" w-96 h-96 mx-auto" src={product.image} alt=""/>
@@ -54,7 +75,7 @@ const Review = () => {
       <div className='w-full lg:w-96 mx-auto  '>
          <label  htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your comment</label>
 <textarea onChange={handleComment} name="message"  id="message" rows={4} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your valuable comment here..."></textarea>
-<button  className='btn bg-blue-600 text-white p-2 rounded-sm w-20 my-4 hover:rounded-md '>Send</button>
+<button onClick={()=>handleSubmitReview()}  className='btn bg-blue-600 text-white p-2 rounded-sm w-20 my-4 hover:rounded-md '>Send</button>
           </div>
     </div>
   );
