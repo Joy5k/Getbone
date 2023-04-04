@@ -1,24 +1,43 @@
 import 'flowbite';
-import { useContext } from 'react';
+import { useContext,useEffect,useState } from 'react';
 import { HashRouter as Router, Route, Link } from 'react-router-dom'
 import { AuthContext } from '../../../context/Authprovider';
 import { FaUserAlt,FaShoppingCart,FaRegHeart } from 'react-icons/fa';
 import { getAuth, signOut } from 'firebase/auth';
 import app from '../../../firebase/firebase.init';
+import { CgProfile } from 'react-icons/cg';
 const auth = getAuth(app)
 
+
+type NewUserProps = {
+  imageUrl: string | null;
+  // ...
+};
 const Navbar = () => {
+  const [userData, setUserData] = useState<NewUserProps>({
+    imageUrl: '',
+    // ...
+  });
   const { user } = useContext(AuthContext);
   const handleLogout = () => { 
        signOut(auth)
   }
+  useEffect(() => {
+    fetch(`https://getbone-server-joy5k.vercel.app/user?email=${user?.email}`)
+      .then((response) => response.json())
+      .then((data) => {
+
+        setUserData({ ...data });
+      });
+  }, [user?.email]);
   return (
 
 <nav  className="sm:w-full md:w-10/12 lg:w-10/12 mx-auto text-white bg-slate-700  px-2 sm:px-4 py-2.5  ">
   <div  className="container flex flex-wrap items-center justify-between mx-auto">
   <Link to="/"  className="flex items-center">
       <img src="https://static.vecteezy.com/system/resources/previews/002/986/080/original/letter-g-logo-design-template-free-vector.jpg"  className="h-6 mr-3 sm:h-9 rounded-full" alt="Getbone Logo" />
-      <span  className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Getbone</span>
+    
+          <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Getbone</span>
         </Link>
      
 
@@ -87,10 +106,13 @@ const Navbar = () => {
               <div  className="flex items-center md:order-2 ">
               <button  type="button"  className="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
                     <span className="sr-only">Open user menu</span>
-                    {
-                      user?.photoURL ? <img className="w-8 h-8 rounded-full" src={user?.photoURL} alt='' /> :<FaUserAlt></FaUserAlt>
-                    }
-               
+                 {
+          !userData?.imageUrl && !user.photoURL ? <CgProfile className='w-8 h-8 rounded-full bg-white text-black' size={24} /> :
+            <>
+              {userData?.imageUrl ? <img className='w-8 h-8 rounded-full' src={userData?.imageUrl} alt="Uploaded Image" />: <img className='w-8 h-8 rounded-full' src={user.photoURL} alt="Uploaded Image" /> 
+        }
+            </>
+        }
               </button>
         
               <div className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">

@@ -34,14 +34,14 @@ const MyProfile = () => {
   const [userData, setUserData] = useState<NewUserProps>({
     imageUrl: '',
     // ...
-  });  const [images, setImages] = useState<string[]>([]);
+  }); const [images, setImages] = useState<string[]>([]);
+  console.log(userData);
   const [email, setEmail] = useState<string>('');
   const [role, setRole] = useState<string>('');
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
   const [id, setId] = useState<string>('');
   const [upload, setUpload] = useState<boolean>(false);
-  console.log(id);
   const [file, setFile] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const imageLink=userData?.imageUrl
@@ -62,7 +62,8 @@ const MyProfile = () => {
   async function handleChange (event: React.ChangeEvent<HTMLInputElement>) {
     const fieldName = event.target.name;
     setUserData({ ...userData, [fieldName]: event.target.value });
-    setUserData({ ...userData, imageUrl: imageUrl });
+    // setUserData({ ...userData, imageUrl: imageUrl });
+    console.log(fieldName+event.target.value);
   };
   
   
@@ -107,7 +108,7 @@ const MyProfile = () => {
     if (file) {
       setFile(file);
     }
-    handleUpload(); // call handleUpload after setting the file state
+    // handleUpload(); // call handleUpload after setting the file state
   }
   return (
     <div className='sm:flex-col  md:flex-row lg:flex user profile  lg:w-10/12 md:w-10/12 sm:w-full mx-auto'>  

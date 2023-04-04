@@ -181,7 +181,7 @@ const Details = () => {
                              <svg className="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd"></path></svg>
                          </button>
                          <div>
-                             <input type="number" id="first_product" className="bg-gray-50 w-14 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block px-2.5 py-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value={quantity} required />
+                             <input type="number" id="first_product" className="bg-gray-50 w-14 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block px-2.5 py-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" defaultValue={quantity} required />
                          </div>
                          <button onClick={addQuantity} className="inline-flex items-center p-1 text-sm font-medium text-gray-500 bg-white rounded-full border border-gray-300 focus:outline-none " type="button">
                              <span className="sr-only">Quantity button</span>
@@ -193,7 +193,7 @@ const Details = () => {
                              <Link to="" className="block py-2 pl-3 pr-4 mb-1 rounded text-black hover:md:text-blue-700 hover:text-xl md:p-0 "> <FaRegHeart className='ml-4 '></FaRegHeart></Link>
                          </button>
                     </div>
-                <p className="w-full text-gray-400"> Total-price:<input type="number"  value={price*quantity} className=" border-none" disabled/></p>
+                <p className="w-full text-gray-400"> Total-price:<input type="number"  defaultValue={price*quantity} className=" border-none" disabled/></p>
                      </div>
              </div>
              <p className="text-xl font-bold text-blue-600 mt-6">Description</p>
