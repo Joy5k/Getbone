@@ -107,9 +107,9 @@ const Navbar = () => {
               <button  type="button"  className="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
                     <span className="sr-only">Open user menu</span>
                  {
-          !userData?.imageUrl && !user.photoURL ? <CgProfile className='w-8 h-8 rounded-full bg-white text-black' size={24} /> :
+          !userData?.imageUrl && !user?.photoURL ? <CgProfile className='w-8 h-8 rounded-full bg-white text-black' size={24} /> :
             <>
-              {userData?.imageUrl ? <img className='w-8 h-8 rounded-full' src={userData?.imageUrl} alt="Uploaded Image" />: <img className='w-8 h-8 rounded-full' src={user.photoURL} alt="Uploaded Image" /> 
+              {userData?.imageUrl ? <img className='w-8 h-8 rounded-full' src={userData?.imageUrl} alt="Uploaded Image" />: <img className='w-8 h-8 rounded-full' src={user?.photoURL} alt="Uploaded Image" /> 
         }
             </>
         }

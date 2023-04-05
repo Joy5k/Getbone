@@ -24,7 +24,8 @@ const SignIn = () => {
   const location = useLocation();
   const from = location.state?.from?.pathname || '/';
   const navigate = useNavigate()
-  
+  const [isChecked, setIsChecked] = useState<boolean>(false);
+
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const fieldName = event.target.name;
@@ -34,9 +35,11 @@ const SignIn = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     console.log(user);
     console.log(user.email, user.password)
     signInWithEmailAndPassword(auth, user.email, user.password)
+      
       .then((result) => {
         // Signed in 
         const user = result.user;
@@ -64,6 +67,10 @@ const SignIn = () => {
       // ...
     });
   }
+  function handleCheckboxChange(event: React.ChangeEvent<HTMLInputElement>): void {
+    setIsChecked(event.target.checked);
+
+  }
     return (
         <div>
              <form onSubmit={handleSubmit} className='lg:w-4/12 md:w-6/12 sm:w-11/12 mx-auto border-1 bg-slate-200 rounded-lg py-12 px-5 mt-4 mb-40 flex flex-col
@@ -80,12 +87,13 @@ const SignIn = () => {
           <p className='text-red-600'>{ error}</p>      
   <div className="flex items-start mb-6">
     <div className="flex items-center h-5">
-      <input id="remember" type="checkbox" value="" className="w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" required/>
+      <input type="checkbox" id="myCheckbox" onChange={handleCheckboxChange}  className="w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" required/>
     </div>
-    <label htmlFor="terms" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">I agree with the <a href="#" className="text-blue-600 hover:underline ">terms and conditions</a></label>
+    <label htmlFor="terms" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">I agree with the <a href="/" className="text-blue-600 hover:underline ">terms and conditions</a></label>
   </div>
-              <button  type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mb-2">Submit</button>
-            <Link to='/signup' className='text-blue-600 underline'>Create a new account</Link>
+          <button type="submit"  id="myButton"         className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ${isChecked ? "" : "opacity-50 cursor-not-allowed"}`}
+ disabled={!isChecked} >Sign In</button>
+          <Link to='/signup' className='text-blue-600 underline'>Create a new account</Link>
           <div className="flex items-center pt-4 space-x-1 mb-3">
 		<div className="flex-1 h-px sm:w-16 bg-gray-700 "></div>
 		<p className="px-3 text-sm text-black">Login with social accounts</p>
