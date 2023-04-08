@@ -1,5 +1,6 @@
 import React, {useState,useContext,useEffect }  from 'react'
 import {  FaMapMarkerAlt, FaRegGem } from 'react-icons/fa'
+import {  MdOutlineFileUpload } from 'react-icons/md'
 import { AuthContext } from '../../context/Authprovider';
 import swal from 'sweetalert';
 import axios from 'axios';
@@ -62,7 +63,6 @@ const MyProfile = () => {
   async function handleChange (event: React.ChangeEvent<HTMLInputElement>) {
     const fieldName = event.target.name;
     setUserData({ ...userData, [fieldName]: event.target.value });
-    // setUserData({ ...userData, imageUrl: imageUrl });
     console.log(fieldName+event.target.value);
   };
   
@@ -75,7 +75,7 @@ const MyProfile = () => {
       headers: {
         'content-type': 'application/json',
       },
-      body: JSON.stringify({ ...userData, imageUrl }),
+      body: JSON.stringify({ ...userData }),
     })
       .then((res) => res.json())
       .then((data) => {
@@ -96,10 +96,22 @@ const MyProfile = () => {
       setImageUrl(response.data.data.url);
       setUpload(true);
       setUserData({ ...userData, imageUrl: imageUrl });
+      setUserData({ ...userData, imageUrl: response.data.data.url });
       if (response.data.data.url !==null) {
-        setUserData({ ...userData, imageUrl: response.data.data.url });
+        fetch(`http://localhost:5000/user/${id}`, {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json',
+          },
+          body: JSON.stringify({ ...userData, imageUrl }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.acknowledged === true) {
+alert(data.acknowledged)
+            }
+          });
       }
-      handleUpload();
     }
   }
   
@@ -153,29 +165,31 @@ const MyProfile = () => {
 {/* // User input Field */}
       <div className='w-full border  border-gray-200 shadow-gray-300 shadow-2xl p-4 mb-10'>
         <form onSubmit={handleUpdatedProfile}>
-          <div className="my-4 mb-8">
-            <p className='text-md font-semibold'>Upload Image</p>
-    
-            <input  type="file" onChange={handleFileChange} className='text-transparent  ' />
-            {/* <input type="text" name="imageUrl" value={imageUrl} onFocus={handleImageUrlChange} /> */}
+          <div className="my-4">
+            <label htmlFor='file-upload' className='text-md font-semibold'>
+              Upload Image
+              <MdOutlineFileUpload className='bg-blue-600 text-white  w-24 h-10 rounded-md cursor-pointer mt-2'>
 
+              </MdOutlineFileUpload>
+            </label>
+            <input id='file-upload'  type="file" onChange={handleFileChange}  className='hidden'/>
           </div>
-          <button onClick={handleUpload} className='border border-gray-300 my-4 bg-gray-200'>Upload</button>
+          <button onClick={handleUpload} className='border border-gray-300 my-4 bg-gray-200 w-20 rounded-lg'>Upload</button>
           
        <div className="grid md:grid-cols-2 md:gap-6">
        <div className="relative z-0 mb-6 w-full group">
-        <input onBlur={handleChange} type="text" name="firstName"  id="floating_last_name" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer mt-1"  defaultValue={userInfo?.firstName}  />
+        <input onFocus={handleChange} type="text" name="firstName"  id="floating_last_name" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer mt-1"  defaultValue={userInfo?.firstName}  />
         <label htmlFor="floating_last_name" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">First name</label>
             </div>
     <div className="relative z-0 mb-6 w-full group">
-        <input onBlur={handleChange} type="text" name="lastName"  id="floating_last_name" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer mt-1" defaultValue={userInfo?.lastName}   />
+        <input onFocus={handleChange} type="text" name="lastName"  id="floating_last_name" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer mt-1" defaultValue={userInfo?.lastName}   />
         <label htmlFor="floating_last_name" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Last name</label>
             </div>
 
 
   </div>
   <div className="relative z-0 mb-6 mt-6 w-full group">
-  <input onBlur={handleChange} type="email" name="email"  id="floating_last_name" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer mt-1" defaultValue={user.email} disabled />
+  <input onFocus={handleChange} type="email" name="email"  id="floating_last_name" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer mt-1" defaultValue={user.email} disabled />
       <label htmlFor="floating_email" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8 mb-4">Email address</label>
           </div>
           <p className='text-lg font-bold my-4'>Address</p>
@@ -183,19 +197,19 @@ const MyProfile = () => {
 
           <div className="grid md:grid-cols-2 md:gap-6">
     <div className="relative z-0 mb-6 w-full group">
-        <input onBlur={handleChange} type="text" name="street" id="floating_first_name" className="block py-2.5 mt-1 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" defaultValue={userInfo?.street}   />
+        <input onFocus={handleChange} type="text" name="street" id="floating_first_name" className="block py-2.5 mt-1 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" defaultValue={userInfo?.street}   />
         <label htmlFor="floating_first_name" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Street</label>
     </div>
     <div className="relative z-0 mb-6 w-full group">
-        <input onBlur={handleChange} type="text" name="city"  id="floating_last_name" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer mt-1" defaultValue={userInfo?.city}   />
+        <input onFocus={handleChange} type="text" name="city"  id="floating_last_name" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer mt-1" defaultValue={userInfo?.city}   />
         <label htmlFor="floating_last_name" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">City</label>
             </div>
             <div className="relative z-0 mb-6 w-full group">
-        <input onBlur={handleChange} type="text" name="state"  id="floating_last_name" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer mt-1" defaultValue={userInfo?.state}   />
+        <input onFocus={handleChange} type="text" name="state"  id="floating_last_name" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer mt-1" defaultValue={userInfo?.state}   />
         <label htmlFor="floating_last_name" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">State/Division</label>
     </div>
             <div className="relative z-0 mb-6 w-full group">
-        <input onBlur={handleChange} type="text" name="country"  id="floating_last_name" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer mt-1" defaultValue={userInfo?.country}   />
+        <input onFocus={handleChange} type="text" name="country"  id="floating_last_name" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer mt-1" defaultValue={userInfo?.country}   />
         <label htmlFor="floating_last_name" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Country</label>
     </div>
   </div>  
@@ -203,7 +217,7 @@ const MyProfile = () => {
  
   <div className="grid md:grid-cols-2 md:gap-6">
     <div className="relative z-0 mb-6 w-full group">
-              <input onBlur={handleChange} type="tel" name="phoneNumber" id="floating_last_name" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer mt-1" defaultValue={userInfo?.phoneNumber}
+              <input onFocus={handleChange} type="tel" name="phoneNumber" id="floating_last_name" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer mt-1" defaultValue={userInfo?.phoneNumber}
      />
         <label htmlFor="floating_last_name" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Phone Number</label>
     </div>
