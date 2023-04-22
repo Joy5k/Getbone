@@ -35,8 +35,7 @@ const MyProfile = () => {
   const [userData, setUserData] = useState<NewUserProps>({
     imageUrl: '',
     // ...
-  }); const [images, setImages] = useState<string[]>([]);
-  console.log(userData);
+  });
   const [email, setEmail] = useState<string>('');
   const [role, setRole] = useState<string>('');
   const [firstName, setFirstName] = useState<string>('');

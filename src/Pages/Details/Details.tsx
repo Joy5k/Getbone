@@ -3,6 +3,7 @@ import { FaCheck, FaExclamationTriangle, FaRegHeart } from "react-icons/fa";
 import { Link, useParams } from "react-router-dom";
 import swal from "sweetalert";
 import { AuthContext } from "../../context/Authprovider";
+import { spawn } from "child_process";
 type data = {
     url: string; 
     title: string;
@@ -35,6 +36,7 @@ const Details = () => {
     const [detail, setDetail] = React.useState<MyObject>({});
     const [taka, setTaka] = useState(0)
     const data = useParams();
+    const [customerMessage,setCustomerMessage]=useState(false)
 
     const productDetails = {
         email: user.email,
@@ -109,7 +111,17 @@ const Details = () => {
                 }    
             })
     }
-  
+  //handle Customer message
+    const handleMessage = (message:string) => {
+        if (message.length>= 100) {
+            console.log('100+', message.length)
+        }
+        else {
+            console.log('100-',message.length);
+        }
+            setCustomerMessage(!customerMessage)
+        console.log(customerMessage);
+    }
 
     const addQuantity = () => {
         setQuantity(quantity + 1)
@@ -221,9 +233,17 @@ const showReview=
             <svg aria-hidden="true" className="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Fifth star</title><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
             <h3 className="ml-2 text-sm font-semibold text-gray-900 dark:text-white">Thinking to buy another one!</h3>
         </div>
-            <p className="mb-2 text-gray-500 dark:text-gray-400">{message }</p>
+            <p className="mb-2 text-gray-500 dark:text-gray-400">{
+                customerMessage ? message : <>{
+                    message.slice(0,100)
+                }...</>
+            }</p>
       
-        <a href="/" className="block mb-5 text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">Read more</a>
+            <button onClick={() => handleMessage(message)} className="block mb-5 text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">
+                {
+                    customerMessage ? <span>Read less</span> : <span>Read more</span>
+            }
+            </button>
         <aside>
             <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">19 people found this helpful</p>
           
