@@ -35,7 +35,11 @@ export const router = createBrowserRouter([
                 path: "/",
                 element:<Home></Home>
             },
-          
+            {
+                path: "/review",
+                element:<Review></Review>,
+                
+            },
             {
                 path: "/signin",
                 element:<SignIn></SignIn>
@@ -96,8 +100,9 @@ export const router = createBrowserRouter([
             {
                 path: "/review/:id",
                 element: <PrivateRoute><Review></Review></PrivateRoute>,
-                loader: ({params})=>fetch(`http://localhost:5000/review/${params.id}`)
+                loader: ({params})=>fetch(`https://getbone-server-joy5k.vercel.app/review/${params.id}`)
             },
+        
             {
                 path: '/dashboard',
                 element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,

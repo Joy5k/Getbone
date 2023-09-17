@@ -78,7 +78,7 @@ const Checkout = ({ data }: myData) => {
           productId:data.productId,
           
         }
-        fetch('http://localhost:5000/payment', {
+        fetch('https://getbone-server-joy5k.vercel.app/payment', {
           method: 'POST',
           headers: {
             'content-type': 'application/json'

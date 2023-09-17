@@ -8,7 +8,7 @@ type userProps = {
     email: string; 
     name: string;
     _id: string;
-    image: string;
+    imageUrl: string;
     price: number;
     guarantee:any,
     warranty: any,
@@ -56,12 +56,15 @@ const AllUsers = () => {
        console.log('ok',_id);
        refetch()
      })
-    }
-    const Items = users.map(({_id,email,name, image}: userProps)=>
+  }
+  console.log(users);
+    const Items = users.map(({_id,email,name, imageUrl}: userProps)=>
     <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-    <td className="p-4 w-32">
-                {/* <img src={image} alt="Apple Watch" /> */}
-                <FaUserAlt className='w-8 h-8'></FaUserAlt>
+        <td className="p-4 w-32">
+          {
+            imageUrl ? <img src={imageUrl} alt="User Image" /> :<FaUserAlt className='w-8 h-8'></FaUserAlt>
+          }
+  
     </td>
     <td className="py-4 px-6 font-semibold text-gray-900 dark:text-white">
        {name}

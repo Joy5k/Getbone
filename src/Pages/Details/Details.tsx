@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import swal from "sweetalert";
 import { AuthContext } from "../../context/Authprovider";
 import { spawn } from "child_process";
+import ProductReviewStatus from "../../components/ProductReviewStatus";
 type data = {
     url: string; 
     title: string;
@@ -219,7 +220,7 @@ const showReview=
     detail['customerReview']?.map(({ imageUrl,userInfo, name, firstName, lastName, message }: review) => {
         return <article className="m-2 shadow-2xl p-4">
          
-        <div className="flex items-center mb-4 space-x-4">
+        <div className="flex items-center mb-4 space-x-4" key={userInfo._id}>
             <img className="w-10 h-10 rounded-full" src={userInfo.imageUrl} alt=""/>
                 <div className="space-y-1 font-medium dark:text-white">
                     <p>Name: {userInfo.name }</p>
@@ -250,13 +251,16 @@ const showReview=
         </aside>
     </article> 
     })
+    console.log(detail.length,'handle this');
 
     return (
         <div className="lg:w-10/12 md:w-10/12 sm:w-full mx-auto bg-white p-2">
             {details}
             <h2 className="text-4xl text-center font-semibold my-4">Customer Review</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 mx-auto">
-                {showReview}
+                {
+                    detail['customerReview']?.length > 0 ? showReview :<ProductReviewStatus></ProductReviewStatus>
+                }
             </div>
         </div>
   );

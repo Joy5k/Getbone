@@ -38,13 +38,12 @@ const Review = () => {
   const handleComment = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     console.log(event, 'The comment has been');
     const fieldName = event.target.name;
-    // setUserInfo({ ...userInfo, [fieldName]: event.target.value, email: user?.email });
     const Data = { [fieldName]: event.target.value,userInfo:userInfo }
     const newData = { ...Data }
     setCustomerComment(newData)
   }
   useEffect(() => {
-    fetch(`http://localhost:5000/email/${user.email}`)
+    fetch(`https://getbone-server-joy5k.vercel.app/email/${user.email}`)
       .then(response => response.json())
       .then(data => {
         setUserInfo(data)
@@ -53,7 +52,7 @@ const Review = () => {
   console.log(CustomerComment, 'new data');
   const handleSubmitReview = () => {
     console.log('clicked');
-    fetch(`http://localhost:5000/review/${product._id}`, {
+    fetch(`https://getbone-server-joy5k.vercel.app/review/${product._id}`, {
       method: 'POST',
       headers: {
         'content-type':'application/json'
@@ -70,10 +69,10 @@ const Review = () => {
   }
   const details = (
     <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 h-auto w-full items-center bg-white border border-gray-200 rounded-lg shadow   ">
-      <img className=" w-96 h-96 mx-auto" src={product.image} alt=""/>
+      <img className=" w-96 h-96 mx-auto" src={product?.image} alt=""/>
       <div className="flex flex-col justify-between p-4 leading-normal">
-        <h5 className="mb-4 text-4xl font-bold tracking-tight text-gray-900 dark:text-white">{product.title}</h5>
-        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{product.description.slice(0, 500) // extract the first 7 characters
+        <h5 className="mb-4 text-4xl font-bold tracking-tight text-gray-900 dark:text-white">{product?.title}</h5>
+        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{product?.description.slice(0, 500) // extract the first 7 characters
 }...</p>
       </div>
       <div className='w-full lg:w-96 mx-auto  '>
@@ -83,9 +82,9 @@ const Review = () => {
           </div>
     </div>
   );
-
   return (
     <div className='sm:w-full md:w-10/12 lg:w-10/12 mx-auto'>
+    
       {details}
     
     </div>

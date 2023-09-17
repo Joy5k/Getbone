@@ -36,6 +36,7 @@ const MyProfile = () => {
     imageUrl: '',
     // ...
   });
+  const [loader,SetLoader]=useState<boolean>(false)
   const [email, setEmail] = useState<string>('');
   const [role, setRole] = useState<string>('');
   const [firstName, setFirstName] = useState<string>('');
@@ -67,9 +68,10 @@ const MyProfile = () => {
   
   
   async function handleUpdatedProfile  (event: React.MouseEvent<HTMLFormElement>){
+    SetLoader(true)
     event.preventDefault();
   
-    fetch(`http://localhost:5000/user/${id}`, {
+    fetch(`https://getbone-server-joy5k.vercel.app/user/${id}`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
@@ -80,11 +82,13 @@ const MyProfile = () => {
       .then((data) => {
         if (data.acknowledged === true) {
           swal('Successful', 'Updated Your Profile', 'success');
+          SetLoader(false)
         }
       });
   };
   
   async function handleUpload() {
+    SetLoader(true)
     if (file) {
       const formData = new FormData();
       formData.append('image', file);
@@ -97,7 +101,7 @@ const MyProfile = () => {
       setUserData({ ...userData, imageUrl: imageUrl });
       setUserData({ ...userData, imageUrl: response.data.data.url });
       if (response.data.data.url !==null) {
-        fetch(`http://localhost:5000/user/${id}`, {
+        fetch(`https://getbone-server-joy5k.vercel.app/user/${id}`, {
           method: 'POST',
           headers: {
             'content-type': 'application/json',
@@ -107,7 +111,7 @@ const MyProfile = () => {
           .then((res) => res.json())
           .then((data) => {
             if (data.acknowledged === true) {
-alert(data.acknowledged)
+              SetLoader(false)
             }
           });
       }
@@ -168,12 +172,12 @@ alert(data.acknowledged)
             <label htmlFor='file-upload' className='text-md font-semibold'>
               Upload Image
               <MdOutlineFileUpload className='bg-blue-600 text-white  w-24 h-10 rounded-md cursor-pointer mt-2'>
-
               </MdOutlineFileUpload>
             </label>
             <input id='file-upload'  type="file" onChange={handleFileChange}  className='hidden'/>
           </div>
-          <button onClick={handleUpload} className='border border-gray-300 my-4 bg-gray-200 w-20 rounded-lg'>Upload</button>
+          {loader ? <button  className='border border-gray-300 my-4 bg-gray-200 w-20 rounded-lg'>Uploading...</button> :   <button onClick={handleUpload} className='border border-gray-300 my-4 bg-gray-200 w-20 rounded-lg'>Upload</button>}
+       
           
        <div className="grid md:grid-cols-2 md:gap-6">
        <div className="relative z-0 mb-6 w-full group">

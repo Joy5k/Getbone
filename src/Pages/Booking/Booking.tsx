@@ -37,7 +37,6 @@ const Booking = () => {
           return data;
         },
     });
-  console.log('get all data in booking routes',booked);
   const { data: booke = [] } = useQuery({
         queryKey: ["booked"],
         queryFn: async () => {
@@ -50,7 +49,7 @@ const Booking = () => {
           return data;
         },
       });
-  console.log(booked,'see the result')
+
       const handleRemove = (_id:string) => {
         fetch(`https://getbone-server-joy5k.vercel.app/addData/${_id}`,
      {
@@ -107,7 +106,7 @@ const Booking = () => {
        
           {
             paid ? <>
-              <Link to='/' className="text-md font-bold">Paid</Link>
+              {/* <Link to='/' className="text-md font-bold">Paid</Link> */}
               <Link to={`/review/${productId}`}>How was the Product?</Link>
             </> :
             <Link to={`/dashboard/payment/${_id}`}>
@@ -144,7 +143,7 @@ const Booking = () => {
                           Delete
                       </th>
                       <th scope="col" className="py-3 px-6">
-                          Add to Cart
+                          Buy-Now
                       </th>
                   </tr>
                           </thead>
