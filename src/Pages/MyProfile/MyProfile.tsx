@@ -63,7 +63,6 @@ const MyProfile = () => {
   async function handleChange (event: React.ChangeEvent<HTMLInputElement>) {
     const fieldName = event.target.name;
     setUserData({ ...userData, [fieldName]: event.target.value });
-    console.log(fieldName+event.target.value);
   };
   
   

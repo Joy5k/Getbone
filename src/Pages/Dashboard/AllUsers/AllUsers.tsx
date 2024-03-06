@@ -53,16 +53,14 @@ const AllUsers = () => {
                         "success"
                       );
                 }  
-       console.log('ok',_id);
        refetch()
      })
   }
-  console.log(users);
     const Items = users.map(({_id,email,name, imageUrl}: userProps)=>
     <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
         <td className="p-4 w-32">
           {
-            imageUrl ? <img src={imageUrl} alt="User Image" /> :<FaUserAlt className='w-8 h-8'></FaUserAlt>
+            imageUrl ? <img src={imageUrl} alt="User Image" />:<FaUserAlt className='w-8 h-8'></FaUserAlt>
           }
   
     </td>
