@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { AuthContext } from "../../context/Authprovider";
 import { useContext } from "react";
 import Spinner from "../../components/Spinner";
@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { ProductStatus } from "../../components/ProductStatus";
 import { Link } from "react-router-dom";
 import OrderSummary from "./OrderSummary";
+import buy_icon from "../../assets/buy_icon.png";
 
 type userProps = {
   url: string;
@@ -23,9 +24,7 @@ type userProps = {
 
 const Booking = () => {
   const { user } = useContext(AuthContext);
-  // const [quantity, setQuantity] = useState(1)
-  // const [price, setPrice] = useState(500)
-  // const [loader, setLoader] = useState(false);
+
   const {
     data: booked = [],
     refetch,
@@ -101,23 +100,15 @@ const Booking = () => {
         key={_id}
         className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
       >
-        <td className="p-4 w-32">
+        <td className="w-32">
           <img src={image} alt="Product" />
         </td>
-        <td className="py-4 px-6 font-semibold text-gray-900 dark:text-white">
+        <td className="hidden xs:inline lg:inline lg:invalid: md:inline py-4 px-6 font-semibold text-gray-900 dark:text-white">
           {title}
         </td>
         <td className="py-4 px-6">
-          <div className="flex items-center space-x-3">
-            <div>
-              <input
-                type="number"
-                id="first_product"
-                className="bg-gray-50 w-14 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block px-2.5 py-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                value={quantity}
-                disabled
-              />
-            </div>
+          <div className="flex items-center ">
+            <span className="font-mono font-semibold">{quantity}</span>
           </div>
         </td>
         <td className="font-semibold text-gray-900 dark:text-white w-20">
@@ -157,9 +148,10 @@ const Booking = () => {
           ) : (
             <Link to={`/dashboard/payment/${_id}`}>
               <button
-                className=" text-white 
+                className="
+             text-white 
               bg-gradient-to-bl from-slate-900 via-purple-900 to-slate-900
-              hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-md  p-2 text-sm"
+              hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-md p-2 text-sm"
               >
                 Buy Now
               </button>
@@ -170,8 +162,8 @@ const Booking = () => {
     )
   );
   return (
-    <div className=" flex  flex-col lg:flex-row justify-center gap-0 lg:w-[1160px] md:bg-[1000px] sm:w-full mx-auto">
-      <div className="lg:w-fit md:w-fit sm:w-fit min-h-screen mx-auto mt-10 ">
+    <div className="flex flex-col lg:flex-row justify-center gap-0 w-full min-h-screen lg:w-[1160px] md:bg-[1000px] sm:w-full mx-auto">
+      <div className="min-h-fit max-w-fit mx-auto mt-10 ">
         {isLoading ? (
           <>
             <Spinner></Spinner>
@@ -179,31 +171,30 @@ const Booking = () => {
         ) : (
           <>
             {booked.length > 0 ? (
-              <div className="">
-                <div className="overflow-x-auto relative shadow-md  ">
-                  <table className="w-fit text-sm text-left text-gray-500 dark:text-gray-400">
+            
+                <div className=" min-h-fit w-overflow-x-auto shadow-md">
+                  <table className="w-overflow-x-auto text-sm text-left text-gray-500 ">
                     <thead
-                      className="text-xs
+                      className="
+                        text-xs
                     bg-gradient-to-bl from-rose-100 to-teal-100
-                    text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+                    text-gray-700 uppercase "
                     >
                       <tr>
-                        <th scope="col" className="py-3 px-6">
+                        <th className="lg:py-3 lg:px-6 sm:py-1 sm:px-1">
                           <span>Image</span>
                         </th>
-                        <th scope="col" className="py-3 px-6">
+                        <th className="hidden xs:inline lg:inline lg:invalid: md:inline lg:py-3 lg:px-6 sm:py-1 sm:px-1">
                           Product
                         </th>
-                        <th scope="col" className="py-3 px-6">
-                          Qty
-                        </th>
-                        <th scope="col" className="py-3 px-6">
+                        <th className="lg:py-3 lg:px-6 sm:py-1 sm:px-1">Qty</th>
+                        <th className="lg:py-3 lg:px-6 sm:py-1 sm:px-1">
                           Price
                         </th>
-                        <th scope="col" className="py-3 px-6">
+                        <th className="lg:py-3 lg:px-6 sm:py-1 sm:px-1">
                           Delete
                         </th>
-                        <th scope="col" className="py-3 px-6">
+                        <th className=" lg:py-3 lg:px-6 sm:py-1 sm:px-1">
                           Buy-Now
                         </th>
                       </tr>
@@ -212,7 +203,7 @@ const Booking = () => {
                     <tbody>{Items}</tbody>
                   </table>
                 </div>
-              </div>
+             
             ) : (
               <ProductStatus></ProductStatus>
             )}
