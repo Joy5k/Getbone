@@ -100,13 +100,19 @@ const Booking = () => {
         key={_id}
         className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
       >
+        <td className="pl-3 border-gray border-r">
+          <input className="mx-auto" type="checkbox" name="select" id="" />
+        </td>
         <td className="w-32">
           <img src={image} alt="Product" />
         </td>
-        <td className="hidden xs:inline lg:inline lg:invalid: md:inline py-4 px-6 font-semibold text-gray-900 dark:text-white">
-          {title}
+        <td className="py-4 px-6 hidden xs:inline lg:inline  lg:invalid: md:inline font-semibold text-gray-900">
+          <div className=" flex items-center justify-center align-middle  dark:text-white">
+            <span className="font-mono font-semibold mt-8">{title}</span>
+          </div>
         </td>
-        <td className="py-4 px-6">
+
+        <td className="lg:py-4 lg:px-6">
           <div className="flex items-center ">
             <span className="font-mono font-semibold">{quantity}</span>
           </div>
@@ -171,39 +177,43 @@ const Booking = () => {
         ) : (
           <>
             {booked.length > 0 ? (
-            
-                <div className=" min-h-fit w-overflow-x-auto shadow-md">
-                  <table className="w-overflow-x-auto text-sm text-left text-gray-500 ">
-                    <thead
-                      className="
+              <div className=" min-h-fit w-overflow-x-auto shadow-md">
+                <table className="w-overflow-x-auto text-sm text-left text-gray-500 ">
+                  <thead
+                    className="
                         text-xs
                     bg-gradient-to-bl from-rose-100 to-teal-100
                     text-gray-700 uppercase "
-                    >
-                      <tr>
-                        <th className="lg:py-3 lg:px-6 sm:py-1 sm:px-1">
-                          <span>Image</span>
-                        </th>
-                        <th className="hidden xs:inline lg:inline lg:invalid: md:inline lg:py-3 lg:px-6 sm:py-1 sm:px-1">
-                          Product
-                        </th>
-                        <th className="lg:py-3 lg:px-6 sm:py-1 sm:px-1">Qty</th>
-                        <th className="lg:py-3 lg:px-6 sm:py-1 sm:px-1">
-                          Price
-                        </th>
-                        <th className="lg:py-3 lg:px-6 sm:py-1 sm:px-1">
-                          Delete
-                        </th>
-                        <th className=" lg:py-3 lg:px-6 sm:py-1 sm:px-1">
-                          Buy-Now
-                        </th>
-                      </tr>
-                    </thead>
+                  >
+                    <tr>
+                      <th className="">
+                        <span>Select</span>
+                      </th>
+                      <th className="lg:py-3 lg:px-6 sm:py-1 sm:px-2 xs:px-2">
+                        <span>Image</span>
+                      </th>
+                      <th className="mt-2 sm:py-1 sm:px-1 hidden xs:block lg:block md:block items-center justify-center align-middle">
+                        Product
+                      </th>
 
-                    <tbody>{Items}</tbody>
-                  </table>
-                </div>
-             
+                      <th className="lg:py-3 lg:px-6 sm:py-1 sm:px-4 xs:ml-2">
+                        Qty
+                      </th>
+                      <th className="lg:py-3 lg:px-6 sm:py-1 sm:px-1 xs:ml-3">
+                        Price
+                      </th>
+                      <th className="lg:py-3 lg:px-6 sm:py-1 sm:px-1">
+                        Delete
+                      </th>
+                      <th className=" lg:py-3 lg:px-6 sm:py-1 sm:px-1">
+                        Buy-Now
+                      </th>
+                    </tr>
+                  </thead>
+
+                  <tbody>{Items}</tbody>
+                </table>
+              </div>
             ) : (
               <ProductStatus></ProductStatus>
             )}
