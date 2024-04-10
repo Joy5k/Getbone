@@ -1,29 +1,32 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { AuthContext } from "../../context/Authprovider";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import Spinner from "../../components/Spinner";
 import { useQuery } from "@tanstack/react-query";
 import { ProductStatus } from "../../components/ProductStatus";
 import { Link } from "react-router-dom";
 import OrderSummary from "./OrderSummary";
-import buy_icon from "../../assets/buy_icon.png";
+import { userProps } from "../../interfaces/product";
 
-type userProps = {
-  url: string;
-  title: string;
-  _id: string;
-  image: string;
-  price: number;
-  guarantee: any;
-  warranty: any;
-  quantity: number;
-  description: any;
-  paid: boolean;
-  productId: string;
-};
+
 
 const Booking = () => {
   const { user } = useContext(AuthContext);
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [totalPrice,setTotalPrice]=useState(0)
+console.log(totalPrice);
+
+  const handleSelectProduct = (payload:any,id:string) => {
+    if (selectedIds.includes(id)) {
+      setSelectedIds(selectedIds.filter((item: string) => item !== id));
+      setTotalPrice(totalPrice-payload)
+    } else {
+      setTotalPrice(totalPrice+payload)
+      setSelectedIds([...selectedIds, id]);
+    }
+   
+  };
+
 
   const {
     data: booked = [],
@@ -101,7 +104,7 @@ const Booking = () => {
         className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
       >
         <td className="pl-3 border-gray border-r">
-          <input className="mx-auto" type="checkbox" name="select" id="" />
+          <input onClick={()=>handleSelectProduct((quantity*price),_id)} className="mx-auto" type="checkbox" name="select" id="" />
         </td>
         <td className="w-32">
           <img src={image} alt="Product" />
@@ -167,6 +170,9 @@ const Booking = () => {
       </tr>
     )
   );
+
+
+
   return (
     <div className="flex flex-col lg:flex-row justify-center gap-0 w-full min-h-screen lg:w-[1160px] md:bg-[1000px] sm:w-full mx-auto">
       <div className="min-h-fit max-w-fit mx-auto mt-10 ">
