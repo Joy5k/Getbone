@@ -13,8 +13,7 @@ import { userProps } from "../../interfaces/product";
 const Booking = () => {
   const { user } = useContext(AuthContext);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
-  const [totalPrice,setTotalPrice]=useState(0)
-console.log(totalPrice);
+  const [totalPrice,setTotalPrice]=useState<number>(0)
 
   const handleSelectProduct = (payload:any,id:string) => {
     if (selectedIds.includes(id)) {
@@ -227,7 +226,7 @@ console.log(totalPrice);
         )}
       </div>
       <div className="mx-auto mt-10 lg:w-96 md:full sm:w-full">
-        <OrderSummary></OrderSummary>
+        <OrderSummary totalPrice={totalPrice} />
       </div>
     </div>
   );
