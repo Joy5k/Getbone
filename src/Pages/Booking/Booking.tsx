@@ -1,31 +1,28 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { AuthContext } from "../../context/Authprovider";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Spinner from "../../components/Spinner";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { ProductStatus } from "../../components/ProductStatus";
 import { Link } from "react-router-dom";
 import OrderSummary from "./OrderSummary";
 import { userProps } from "../../interfaces/product";
 
-
-
 const Booking = () => {
   const { user } = useContext(AuthContext);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
-  const [totalPrice,setTotalPrice]=useState<number>(0)
+  const [totalPrice, setTotalPrice] = useState<number>(0);
 
-  const handleSelectProduct = (payload:any,id:string) => {
+
+  const handleSelectProduct = (payload: any, id: string) => {
     if (selectedIds.includes(id)) {
       setSelectedIds(selectedIds.filter((item: string) => item !== id));
-      setTotalPrice(totalPrice-payload)
+      setTotalPrice(totalPrice - payload);
     } else {
-      setTotalPrice(totalPrice+payload)
+      setTotalPrice(totalPrice + payload);
       setSelectedIds([...selectedIds, id]);
     }
-   
   };
-
 
   const {
     data: booked = [],
@@ -34,33 +31,42 @@ const Booking = () => {
   } = useQuery({
     queryKey: ["booked"],
     queryFn: async () => {
+       if (user?.email) {
       const res = await fetch(
-        `https://getbone-server-joy5k.vercel.app/addData?email=${user?.email}`,
+        `https://getbone-server-joy5k.vercel.app/addData?email=${user.email}`,
         {
           headers: {
-            authorization: `bearer ${localStorage.getItem("accessToken")}`,
+            authorization: `bearer ${localStorage.getItem('accessToken')}`,
           },
         }
       );
       const data = await res.json();
       return data;
+    } else {
+      return []; // Return empty array to avoid errors
+    }
     },
+    staleTime:Infinity
   });
-  const { data: booke = [] } = useQuery({
-    queryKey: ["booked"],
-    queryFn: async () => {
-      const res = await fetch(
-        `https://getbone-server-joy5k.vercel.app/addData?email=${user?.email}`,
-        {
-          headers: {
-            authorization: `bearer ${localStorage.getItem("accessToken")}`,
-          },
-        }
-      );
-      const data = await res.json();
-      return data;
-    },
-  });
+  // const { data: booke = [] } = useQuery({
+  //   queryKey: ["booked"],
+  //   queryFn: async () => {
+  //     if (user?.email) {
+  //       const res = await fetch(
+  //         `https://getbone-server-joy5k.vercel.app/addData?email=${user.email}`,
+  //         {
+  //           headers: {
+  //             authorization: `bearer ${localStorage.getItem('accessToken')}`,
+  //           },
+  //         }
+  //       );
+  //       const data = await res.json();
+  //       return data;
+  //     } else {
+  //       return []; // Return empty array to avoid errors
+  //     }
+  //   },
+  // });
 
   const handleRemove = (_id: string) => {
     fetch(`https://getbone-server-joy5k.vercel.app/addData/${_id}`, {
@@ -87,6 +93,7 @@ const Booking = () => {
   if (isLoading) {
     <Spinner></Spinner>;
   }
+
   const Items = booked.map(
     ({
       _id,
@@ -103,7 +110,13 @@ const Booking = () => {
         className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
       >
         <td className="pl-3 border-gray border-r">
-          <input onClick={()=>handleSelectProduct((quantity*price),_id)} className="mx-auto" type="checkbox" name="select" id="" />
+          <input
+            onClick={() => handleSelectProduct(quantity * price, _id)}
+            className="mx-auto"
+            type="checkbox"
+            name="select"
+            id=""
+          />
         </td>
         <td className="w-32">
           <img src={image} alt="Product" />
@@ -170,8 +183,6 @@ const Booking = () => {
     )
   );
 
-
-
   return (
     <div className="flex flex-col lg:flex-row justify-center gap-0 w-full min-h-screen lg:w-[1160px] md:bg-[1000px] sm:w-full mx-auto">
       <div className="min-h-fit max-w-fit mx-auto mt-10 ">
@@ -226,7 +237,7 @@ const Booking = () => {
         )}
       </div>
       <div className="mx-auto mt-10 lg:w-96 md:full sm:w-full">
-        <OrderSummary totalPrice={totalPrice} />
+        <OrderSummary totalPrice={totalPrice} payload={selectedIds} />
       </div>
     </div>
   );

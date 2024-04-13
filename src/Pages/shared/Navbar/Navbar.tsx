@@ -23,12 +23,14 @@ const Navbar = () => {
        signOut(auth)
   }
   useEffect(() => {
-    fetch(`https://getbone-server-joy5k.vercel.app/user?email=${user?.email}`)
+    if (user.email) {
+      fetch(`https://getbone-server-joy5k.vercel.app/user?email=${user?.email}`)
       .then((response) => response.json())
       .then((data) => {
 
         setUserData({ ...data });
       });
+  }
   }, [user?.email]);
   return (
 

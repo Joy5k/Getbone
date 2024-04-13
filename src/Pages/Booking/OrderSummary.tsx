@@ -1,15 +1,17 @@
 import { useState } from "react";
 
-const OrderSummary = ({ totalPrice }: any) => {
+const OrderSummary = ({ totalPrice, payload }: any) => {
   const [backendCoupon,setBackendCoupon] =useState<string|number>("backendCoupon")
-  const [coupon,setCoupon]=useState<string|number>()
-  const handleCoupon = () => {
+  const [coupon, setCoupon] = useState<string | number>()
+  
     
-console.log(coupon);
-    // if (coupon === backendCoupon) {
-    //   console.log('hurry this is in if condition');
-    //   // go to the checkout route and do it
-    // }
+  console.log(payload);
+  const handleCoupon = () => {
+    if (coupon === backendCoupon) {
+      console.log('hurry this is in if condition');
+      // go to the checkout route and do it
+      
+    }
   }
   return (
     <div>
@@ -21,7 +23,7 @@ console.log(coupon);
           <p className="font-semibold">Sub-Total</p>
           <p>{totalPrice}</p>
         </div>
-        <div className="flex items-center justify-center">
+        <div className="flex ">
           <input onChange={(e)=> setCoupon(e.target.value.toUpperCase())
 } className="h-8 w-fit border-gray-300 rounded-l-md" type="text" placeholder="Coupon code" name="coupon" />
           <button onClick={handleCoupon} className="h-8 w-fit rounded-r-md pb-1 text-lg font-semibold text-center bg-blue-200  px-2 rounded-sm text-white hover:bg-blue-700 ">Apply</button>
