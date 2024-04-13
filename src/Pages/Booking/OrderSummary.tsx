@@ -1,16 +1,19 @@
-import { useState } from "react";
+import {useState } from "react";
 
-const OrderSummary = ({ totalPrice, payload }: any) => {
-  const [backendCoupon,setBackendCoupon] =useState<string|number>("backendCoupon")
+const OrderSummary = ({ price, payload }: any) => {
+  const [backendCoupon,setBackendCoupon] =useState<number>(0)
   const [coupon, setCoupon] = useState<string | number>()
-  
+  let totalPrice
     
   console.log(payload);
-  const handleCoupon = () => {
+  const handleCoupon = async() => {
+    const res = await fetch(`https://getbone-server-joy5k.vercel.app/coupon/${coupon}`)
+    const data = await res.json()
+    setBackendCoupon( data)
     if (coupon === backendCoupon) {
       console.log('hurry this is in if condition');
       // go to the checkout route and do it
-      
+     totalPrice=price-backendCoupon
     }
   }
   return (
@@ -38,7 +41,7 @@ const OrderSummary = ({ totalPrice, payload }: any) => {
         </div>
         <div className="flex justify-between ">
           <p className="font-semibold">Total</p>
-          <p className="font-bold text-xl">{totalPrice+120}</p>
+          <p className="font-bold text-xl">{totalPrice&&totalPrice+120}</p>
         </div>
         <button className="text-md text center w-full mt-3 bg-black hover:bg-slate-500 p-2 text-white">
           PROCEED TO CHECKOUT

@@ -1,8 +1,8 @@
 import 'flowbite';
 import { useContext,useEffect,useState } from 'react';
-import { HashRouter as Router, Route, Link } from 'react-router-dom'
+import { HashRouter as Router, Link } from 'react-router-dom'
 import { AuthContext } from '../../../context/Authprovider';
-import { FaUserAlt,FaShoppingCart,FaRegHeart } from 'react-icons/fa';
+import {FaShoppingCart,FaRegHeart } from 'react-icons/fa';
 import { getAuth, signOut } from 'firebase/auth';
 import app from '../../../firebase/firebase.init';
 import { CgProfile } from 'react-icons/cg';
