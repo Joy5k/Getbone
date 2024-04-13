@@ -13,7 +13,6 @@ const Booking = () => {
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [totalPrice, setTotalPrice] = useState<number>(0);
 
-
   const handleSelectProduct = (payload: any, id: string) => {
     if (selectedIds.includes(id)) {
       setSelectedIds(selectedIds.filter((item: string) => item !== id));
@@ -48,25 +47,25 @@ const Booking = () => {
     },
     staleTime:Infinity
   });
-  // const { data: booke = [] } = useQuery({
-  //   queryKey: ["booked"],
-  //   queryFn: async () => {
-  //     if (user?.email) {
-  //       const res = await fetch(
-  //         `https://getbone-server-joy5k.vercel.app/addData?email=${user.email}`,
-  //         {
-  //           headers: {
-  //             authorization: `bearer ${localStorage.getItem('accessToken')}`,
-  //           },
-  //         }
-  //       );
-  //       const data = await res.json();
-  //       return data;
-  //     } else {
-  //       return []; // Return empty array to avoid errors
-  //     }
-  //   },
-  // });
+  const { data: booke = [] } = useQuery({
+    queryKey: ["booked"],
+    queryFn: async () => {
+      if (user?.email) {
+        const res = await fetch(
+          `https://getbone-server-joy5k.vercel.app/addData?email=${user.email}`,
+          {
+            headers: {
+              authorization: `bearer ${localStorage.getItem('accessToken')}`,
+            },
+          }
+        );
+        const data = await res.json();
+        return data;
+      } else {
+        return []; // Return empty array to avoid errors
+      }
+    },
+  });
 
   const handleRemove = (_id: string) => {
     fetch(`https://getbone-server-joy5k.vercel.app/addData/${_id}`, {
