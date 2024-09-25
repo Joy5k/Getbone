@@ -4,11 +4,8 @@ import { useContext } from 'react';
 
 import { AuthContext } from '../../../context/Authprovider';
 import swal from 'sweetalert';
-import { useNavigate } from 'react-router-dom';
-type myData = {
-  data: any;
-}
-const Checkout = ({ data }: myData) => {
+
+const Checkout = ({ data }: any) => {
   const { user } = useContext(AuthContext);
   const name ='name'in user ? user.displayName :null
  const [paymentStatus,setPaymentStatus] =useState(false)

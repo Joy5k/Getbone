@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from 'react'
-// import DesktopCard from './DesktopCard'
 import { Link } from 'react-router-dom'
 import Spinner from '../../components/Spinner'
 
 
-// https://jsonplaceholder.typicode.com/photos
-type childrenType = {
-    children:React.ReactNode
-}
 type DataType = {
     category:string;
     description:string;

@@ -2,17 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import swal from "sweetalert";
 import Spinner from "../../../components/Spinner";
 import { ProductStatus } from "../../../components/ProductStatus";
+import { TProductsProps } from "../../../types";
 
-type productsProps = {
-    image:string;
-    title: string;
-    quantity: number;
-    _id: string;
-    price: any;
-    email: string;
-    message: any;
-    reportedItem: any;
-}
 const ReportedProducts = () => {
  
     const { data: items = [] ,refetch,isLoading} = useQuery({
@@ -50,9 +41,8 @@ const ReportedProducts = () => {
   if (isLoading) {
     return <Spinner></Spinner>
   }
-console.log(items)
 
-    const products = items.map(({ image, title, _id, price,email,message,reportedItem }: productsProps)  => 
+    const products = items.map(({ image, title, _id, price,email,message,reportedItem }: TProductsProps)  => 
         <div className="flex flex-col items-center h-72 w-full bg-white border rounded-lg shadow-md md:flex-row  hover:bg-gray-100 my-6 ">
                 
         <img  className="object-cover w-5/12  h-72 " src={image} alt=""/>
