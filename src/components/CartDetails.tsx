@@ -138,7 +138,6 @@ const cartDetails={}
           <p className="text-xl font-bold text-blue-600 mt-6">Description</p>
                   <p className="w-11/12 lg:w-[800px] my-12 text-justify"><span className="font-bold  ">Description</span> <br /> Lorem ipsum, dolor sit amet consectetur adipisicing elit. Pariatur, similique molestiae, minus minima voluptates, necessitatibus error quibusdam impedit quidem laborum excepturi mollitia provident nobis. Quia modi esse molestias quis expedita!</p>
            <p className="text-md font-bold mb-2">Report the Product</p>
-       {/* <Link to={`/report/${data.id}`}>   <button className="w-32 bg-red-600 text-white  flex items-center justify-center p-2 rounded-md mb-12"><span>Report</span><FaExclamationTriangle className="ml-1"></FaExclamationTriangle></button></Link> */}
       
       </div>
   

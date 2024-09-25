@@ -4,6 +4,7 @@ import { useContext } from 'react';
 
 import { AuthContext } from '../../../context/Authprovider';
 import swal from 'sweetalert';
+import { useNavigate } from 'react-router-dom';
 type myData = {
   data: any;
 }
@@ -16,9 +17,11 @@ const Checkout = ({ data }: myData) => {
   const { price,email  } = data;
     const stripe = useStripe();
     const elements = useElements();
-    const [cardError,setCardError]=useState<string>('');
+    const [cardError,setCardError]=useState('');
   const [clientSecret, setClientSecret] = useState("");
+  const [loader,setLoader]=useState<boolean>(false)
   useEffect(() => {
+
       setCardError('')
       // Create PaymentIntent as soon as the page loads
       fetch("https://getbone-server-joy5k.vercel.app/create-payment-intent", {
@@ -31,14 +34,19 @@ const Checkout = ({ data }: myData) => {
     }, [price]);
   
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+      setLoader(true)
+      setCardError('')
         event.preventDefault();
         if (!stripe || !elements) {
+          setLoader(false)
             return;
         } 
 
         const card = elements.getElement(CardElement);
 
         if (card == null) {
+          setLoader(false)
+
           return;
         }
         const {error, paymentMethod} = await stripe.createPaymentMethod({
@@ -47,6 +55,8 @@ const Checkout = ({ data }: myData) => {
         });
         const result = await stripe.createToken(card);
         if (result.error) {
+          setLoader(false)
+
             setCardError(result.error.message || 'There was an error processing your payment.');
       }
       const {paymentIntent, error:confirmError} = await stripe.confirmCardPayment(
@@ -62,13 +72,21 @@ const Checkout = ({ data }: myData) => {
         },
       );
       if (confirmError) {
+        setLoader(false)
+
         // setCardError('error')
         return
       }
       else {
+        setCardError('')
+        setLoader(false)
+
         console.log(paymentIntent,'Yes you did it');
       }
       if (paymentIntent.status==="succeeded") {
+        setCardError('')
+        setLoader(false)
+
         swal('YAY!', 'Your Payment was successfully completed', 'success')
         const payment = {
           price,
@@ -92,6 +110,9 @@ const Checkout = ({ data }: myData) => {
             if (data.insertedId) {
               setSuccess('congrats! your payment completed')
               setTransactionId(paymentIntent.id)
+              setCardError('')
+              setLoader(false)
+
               setPaymentStatus(true)
               
             }
@@ -122,28 +143,23 @@ const Checkout = ({ data }: myData) => {
          
           <button className='bg-blue-500 w-full p-4 hover:rounded-lg
      hover:bg-yellow-400 mt-6' type="submit" disabled={!stripe}>
-      Pay
-          </button>
+{  loader ? <p>Please Wait...</p> :   <>Pay</>}          </button>
           {
-            !cardError ? <>
-            {/* <span className='text-green-500'>{success }</span>
-            <p className='text-green-500'>Your Transaction ID: <span>
-            {transactionId}
-          </span>
-          </p>  */}
-            </> :
+           !paymentStatus ?
           
        <span className='text-red-600'>{cardError}</span>  
-        }   
-        {
-         paymentStatus && <>
+           :
+        <>
+       
              <span className='text-green-500'>{success }</span>
             <p className='text-gray-500 font-bold'>Your Transaction ID:
               <span className='text-green-500 block'>
             {transactionId}
           </span>
           </p> 
-          </>
+         
+        </>
+         
         }
         </form>
       </div>

@@ -6,7 +6,6 @@ const OrderSummary = ({ totalPrice, payload }: any) => {
   let netPrice;
 
   const handleCoupon = async () => {
-    console.log("clicked",coupon);
     fetch(`http://localhost:5000/coupon/JOY32`)
       .then(res => res.json())
       .then(data => {

@@ -34,7 +34,6 @@ const Review = () => {
   const [userInfo,setUserInfo]=useState({})
   const product = useLoaderData() as productProps;
   const [CustomerComment, setCustomerComment] = useState<NewUserProps>({})
-  console.log(product,'product');
   const handleComment = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     console.log(event, 'The comment has been');
     const fieldName = event.target.name;
@@ -49,7 +48,6 @@ const Review = () => {
         setUserInfo(data)
       })
   },[user.email])
-  console.log(CustomerComment, 'new data');
   const handleSubmitReview = () => {
     console.log('clicked');
     fetch(`https://getbone-server-joy5k.vercel.app/review/${product._id}`, {

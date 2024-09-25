@@ -3,9 +3,10 @@ import './ProductStatus.css';
 
 const ProductReviewStatus = () => {
     return (
-        <div className='loading w-screen  mx-auto  align-middle '>
-          <p className='  my-auto align-middle text-center font-bold text-6xl text-gray-400 relative'>No Product Review Added </p>
-    </div>
+        <div className='w-screen'>
+        <p className='mx-auto font-bold text-xl text-gray-400 text-center '>No Product Review Added</p>
+      </div>
+      
     );
 };
 
